@@ -1475,6 +1475,31 @@ function update(){
 }
 //////////////// END OF UPDATE THE EXISTING LISTINGS ////////////////////
 
+// Read One Listing
+function readOne($locationId){
+    $query = "SELECT * FROM " . $this->location_table . " p WHERE locationId = $locationId";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    return $stmt;
+}
+// End of Read One Listings
+// Read Reviews count
+function readReview($locationId){
+    $query = "SELECT * FROM reviews c WHERE c.locationId = $locationId";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    return $stmt;
+}
+// End of Read Reviews Count
+// Read reviews Avg
+function reviewsAvg($locationId){
+    $query = "SELECT AVG(reviewRating) as avgTotal FROM reviews r WHERE r.locationId = $locationId";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    return $stmt;
+}
+// End of Read Reviews Avg
+
 //////////////// DELETE THE EXISTING LISTINGS ////////////////////
     function delete(){
         // $query = "DELETE FROM " . $this->location_table . " WHERE locationId = $this->id";

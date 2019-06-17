@@ -14,10 +14,28 @@ $db = $database->getConnection();
  
 // initialize object
 $product = new Product($db);
- 
+
+// get product id
+$data = json_decode(file_get_contents("php://input"));
+$id=isset($_GET["id"]) ? $_GET["id"] : "";
+// set product id to be deleted
+$product->id = $id;
+
+// print_r($product->id); die();
+
+if (empty($product->id)){
+    http_response_code(400);
+    echo json_encode(array("issues" => [
+        "description" => "Malformed request sent.",
+        "errorCode" => "400",
+        "issue" => "No id Provided"
+    ]));
+    die();
+}
+
 // read products will be here
 // query products
-$stmt = $product->read();
+$stmt = $product->readOne($product->id);
 $num = $stmt->rowCount();
 // check if more than 0 record found
 if($num>0){
@@ -310,6 +328,20 @@ if($num>0){
             }
         }
 
+        // Reviews Count
+        $reviewCountStmt = $product->readReview($locationId);
+        $reviewsCount = $reviewCountStmt->rowCount();
+
+        // Review Average
+        $reviewAvgStmt = $product->reviewsAvg($locationId);
+        $reviewAvgCount = $reviewAvgStmt->rowCount();
+
+        if ($reviewAvgCount > 0) {
+            while ($reviewAvgRow = $reviewAvgStmt->fetch(PDO::FETCH_ASSOC)){
+                $avgRating = round($reviewAvgRow['avgTotal'],2);
+            }
+        }
+
         // main Array
         $location_item=array(
             "partnerID" => $locationId,
@@ -378,6 +410,8 @@ if($num>0){
             ),
             // "paymentOptions" => array($paymentOptions),
             "urls" => $url_arr,
+            "rating" => $avgRating,
+            "total_reviews" => $reviewsCount,
             "twitterHandle" => $twitterHandle,
             "facebookPageUrl" => $facebookPageUrl,
             "attribution" => array(
