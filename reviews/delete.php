@@ -33,9 +33,4 @@ if (empty($review->id)){
 } else {
     $review->deleteReview();
 }
-// if($review->deleteReview()){
-//     http_response_code(200);
-//     echo json_encode(array("message" => "Location deleted."));
-// }
-
 ?>

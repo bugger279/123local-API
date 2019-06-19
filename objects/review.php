@@ -148,11 +148,15 @@ function deleteReview(){
         $count = $stmt->rowCount();
     }
         if ($count > 0) {
-            http_response_code(200);
-            echo json_encode(array(
-                "message" => "Review Deleted Successfully",
-                "id" => $this->id
-            ));
+            $deleteComments = "DELETE FROM " . $this->comments_table . " WHERE reviewId = $this->id";
+            $deleteCommentStmt = $this->conn->prepare($deleteComments);
+            if($deleteCommentStmt->execute()) {   
+                http_response_code(200);
+                echo json_encode(array(
+                    "message" => "Review and it's related Comments Deleted Successfully",
+                    "id" => $this->id
+                ));
+            }
         } else {
             http_response_code(404);
             echo json_encode(array("issue" => "The requested review does not exist on your site."));
