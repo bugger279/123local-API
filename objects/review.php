@@ -49,6 +49,13 @@ class Review{
         return $stmt;
     }
 
+    function reviewDetail($reviewId){
+        $query = "SELECT * FROM " . $this->reviews_table . " r WHERE r.reviewId = $reviewId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
     function reviewsAvg($locationId){
         $query = "SELECT AVG(reviewRating) as avgTotal FROM " . $this->reviews_table . " r WHERE r.locationId = $locationId";
         $stmt = $this->conn->prepare($query);
