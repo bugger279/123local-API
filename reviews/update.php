@@ -29,6 +29,23 @@ $review->reviewUrl = $data->url;
 $review->reviewSource = $data->source;
 $review->reviewRating = $data->rating;
 
+$queryForId = "SELECT * FROM locations WHERE locationId = $data->listingId";
+$stmt = $database->conn->prepare($queryForId);
+$stmt->execute();
+$count = $stmt->rowCount();
+
+if ($count <= 0) {
+    http_response_code(404);
+    echo json_encode(array(
+        "issues" => [
+            "description" => "No Such listingId",
+            "errorCode" => "404",
+            "issue" => "No Review Updated."
+        ]
+    ));
+    die();
+}
+
 if (empty($review->id)){
     http_response_code(400);
     echo json_encode(array(
