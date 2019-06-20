@@ -267,6 +267,13 @@ class Product{
         $stmt->execute();
         return $stmt;
     }
+
+    function readAllCategories () {
+        $query = "SELECT DISTINCT categoriesName, categoryID  FROM " . $this->categories_table;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();    
+        return $stmt;
+    }
 //////////////// END OF READ ALL LISTINGS ////////////////////
 
 ///////////////// CREATING A NEW LISTINGS /////////////////////
