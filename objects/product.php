@@ -383,15 +383,15 @@ function create(){
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->numbers=htmlspecialchars(strip_tags($value->number->number));
-                $this->phonesCountryCode=htmlspecialchars(strip_tags($value->number->countryCode));
-                $this->phonesDescription=htmlspecialchars(strip_tags($value->description));
-                $this->phonesType=htmlspecialchars(strip_tags($value->description));
+                $numbers=htmlspecialchars(strip_tags($value->number->number));
+                $phonesCountryCode=htmlspecialchars(strip_tags($value->number->countryCode));
+                $phonesDescription=htmlspecialchars(strip_tags($value->description));
+                $phonesType=htmlspecialchars(strip_tags($value->description));
                 // bind values
-                $insertStmt->bindParam(":numbers", $this->numbers);
-                $insertStmt->bindParam(":phonesCountryCode", $this->phonesCountryCode);
-                $insertStmt->bindParam(":phonesDescription", $this->phonesDescription);
-                $insertStmt->bindParam(":phonesType", $this->phonesType);
+                $insertStmt->bindParam(":numbers", $numbers);
+                $insertStmt->bindParam(":phonesCountryCode", $phonesCountryCode);
+                $insertStmt->bindParam(":phonesDescription", $phonesDescription);
+                $insertStmt->bindParam(":phonesType", $phonesType);
                 $insertStmt->execute();
             }
         // End of Phones insert Code...
@@ -411,8 +411,8 @@ function create(){
                 $this->categoryID=htmlspecialchars(strip_tags($value->id));
                 $this->categoriesName=htmlspecialchars(strip_tags($value->name));
                 // bind values
-                $insertStmt->bindParam(":categoriesName", $this->categoriesName);
                 $insertStmt->bindParam(":categoryID", $this->categoryID);
+                $insertStmt->bindParam(":categoriesName", $this->categoriesName);
                 $insertStmt->execute();
             }
         // End of Categories insert Code...
@@ -819,10 +819,17 @@ function create(){
             "url" => "http://www.someexample.com/".$lastId,
             "issue" => []
         ));
-
-        return true;
+    } else{
+        $errors = $stmt->errorInfo();
+        print_r($errors);
+        http_response_code(503);
+        echo json_encode(array("issues" => [
+            "message" => "Unable to create Location.",
+            "status" => "Listing wasn't created.",
+            "errorCode" => "503",
+            "issue" => "Service is unavailable"
+        ]));
     }
-    return false;
 }
 
 //////////////// END OF CREATING A NEW LISTINGS ////////////////////
