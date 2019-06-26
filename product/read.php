@@ -310,6 +310,20 @@ if($num>0){
             }
         }
 
+        // Reviews Count
+        $reviewCountStmt = $product->readReview($locationId);
+        $reviewsCount = $reviewCountStmt->rowCount();
+
+        // Review Average
+        $reviewAvgStmt = $product->reviewsAvg($locationId);
+        $reviewAvgCount = $reviewAvgStmt->rowCount();
+
+        if ($reviewAvgCount > 0) {
+            while ($reviewAvgRow = $reviewAvgStmt->fetch(PDO::FETCH_ASSOC)){
+                $avgRating = round($reviewAvgRow['avgTotal'],2);
+            }
+        }
+
         // main Array
         $location_item=array(
             "partnerID" => $locationId,
@@ -378,6 +392,8 @@ if($num>0){
             ),
             // "paymentOptions" => array($paymentOptions),
             "urls" => $url_arr,
+            "rating" => $avgRating,
+            "total_reviews" => $reviewsCount,
             "twitterHandle" => $twitterHandle,
             "facebookPageUrl" => $facebookPageUrl,
             "attribution" => array(
