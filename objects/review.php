@@ -42,6 +42,13 @@ class Review{
         return $stmt;
     }
 
+    function fetchLocationById($locationId){
+        $query = "SELECT locationId FROM " . $this->location_table . " r WHERE r.locationId = $locationId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
     function readReviews($locationId){
         $query = "SELECT * FROM " . $this->reviews_table . " r WHERE r.locationId = $locationId";
         $stmt = $this->conn->prepare($query);
