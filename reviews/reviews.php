@@ -83,6 +83,7 @@ if($num>0){
                     "sources" => $reviewSource,
                     "title" => $reviewTitle,
                     "url" => $reviewUrl,
+                    "maxRating" => 5, 
                     "rating" => $reviewRating,
                     "comments" => $comment_arr
                 ];
@@ -94,7 +95,7 @@ if($num>0){
             "listingID" => $locationId,
             "total" => $reviewCount,
             "rating" => $avgRating,
-            "maxrating" => $maxRating,
+            "maxRating" => $maxRating,
             "reviews" => $review_arr
         );
         array_push($reviews_arr["records"], $review_item);

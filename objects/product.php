@@ -823,7 +823,7 @@ function create(){
         echo json_encode(array(
             "id" => $lastId,
             "status" => $this->status,
-            "url" => "http://www.someexample.com/".$lastId,
+            "url" => "https://123local.com/single.php?id=".$lastId,
             "issue" => []
         ));
     } else{

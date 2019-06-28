@@ -102,7 +102,7 @@ if ($count > 0) {
             "message" => "Location was updated.",
             "status" => "$product->status",
             "id" => "$product->id",
-            "url" => "http://www.someexample.com/".$product->id,
+            "url" => "https://123local.com/single.php?id=".$product->id,
             "issue" => []
         ]
     ));

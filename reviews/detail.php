@@ -54,6 +54,7 @@ if ($reviewCount > 0) {
             "sources" => $reviewSource,
             "title" => $reviewTitle,
             "url" => $reviewUrl,
+            "maxRating" => 5,
             "rating" => $reviewRating,
             "comments" => $comment_arr
         ];
