@@ -18,7 +18,8 @@ $product = new Product($db);
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 
-$field_data = array( "yextID" => $data->yextID, "status" => $data->status, "name" => $data->name, "address" => $data->address->address, "visible" => $data->address->visible, "address2" => $data->address->address2, "city" => $data->address->city, "displayAddress" => $data->address->displayAddress, "countryCode" => $data->address->countryCode, "postalCode" => $data->address->postalCode, "state" => $data->address->state);
+$field_data = array( "yextID" => $data->yextID, "name" => $data->name, "address" => $data->address->address, "visible" => $data->address->visible, "address2" => $data->address->address2, "city" => $data->address->city, "displayAddress" => $data->address->displayAddress, "countryCode" => $data->address->countryCode, "postalCode" => $data->address->postalCode, "state" => $data->address->state, "description" => $data->description, "displayLatitude" => $data->geoData->displayLatitude, "displayLongitude" => $data->geoData->displayLongitude, "routableLatitude" => $data->geoData->routableLatitude, "routableLongitude" => $data->geoData->routableLongitude, "hoursText->display" => $data->hoursText->display, "specialOfferMessage" => $data->specialOffer->message, "specialOfferUrl" => $data->specialOffer->url, "twitterHandle" => $data->twitterHandle, "facebookPageUrl" => $data->facebookPageUrl, "attribution->Image->Width" => $data->attribution->image->width, "attribution->Image->Description" => $data->attribution->image->description, "attribution->Image->Url" => $data->attribution->image->url, "attribution->Image->Height" => $data->attribution->image->height, "attributionUrl" => $data->attribution->attributionUrl, "closed" => $data->closed, "yearEstablished" => $data->yearEstablished);
+
 foreach($field_data as $key => $val) {
     if (empty($val)) {
         http_response_code(400);
@@ -33,7 +34,6 @@ foreach($field_data as $key => $val) {
 
 if(
     !empty($data->yextID) &&
-    !empty($data->status) &&
     !empty($data->name) &&
     !empty($data->address->address) &&
     !empty($data->address->visible) &&
@@ -45,8 +45,13 @@ if(
     !empty($data->address->state)
 ){
     $product->yextID = $data->yextID;
-    $product->status = $data->status;
     $product->name = $data->name;
+    if (empty($data->status)) {
+        $product->status = "LIVE";
+    } else {
+        // $product->status = $data->status;
+        $product->status = $data->status;
+    }
     $product->address = $data->address->address;
     $product->visible = $data->address->visible;
     $product->address2 = $data->address->address2;

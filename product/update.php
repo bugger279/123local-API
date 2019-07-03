@@ -26,7 +26,11 @@ $id=isset($_GET["id"]) ? $_GET["id"] : "";
 $product->id = $id;
 // set product property values
 $product->yextID = $data->yextID;
-$product->status = $data->status;
+if (empty($data->status)) {
+    $product->status = "LIVE";
+} else {
+    $product->status = $data->status;
+}
 $product->name = $data->name;
 $product->address = $data->address->address;
 $product->visible = $data->address->visible;
@@ -96,7 +100,7 @@ $count = $stmt->rowCount();
 
 if ($count > 0) {
     $product->update();
-    http_response_code(200);
+    http_response_code(201);
     echo json_encode(array(
         "description" => [
             "message" => "Location was updated.",
