@@ -274,6 +274,13 @@ class Product{
         $stmt->execute();    
         return $stmt;
     }
+
+    function locationByCategories ($category_name) {
+        $query = "SELECT * FROM " . $this->location_table . " l INNER JOIN " . $this->categories_table . " c ON l.locationId = c.locationId WHERE c.categoriesName = $category_name " ;
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
 //////////////// END OF READ ALL LISTINGS ////////////////////
 
 ///////////////// CREATING A NEW LISTINGS /////////////////////
