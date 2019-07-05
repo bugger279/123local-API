@@ -112,6 +112,14 @@ class Product{
         $this->conn = $db;
     }
 
+    public function seoUrl($string) {
+        $string = strtolower($string);
+        $string = preg_replace("/[^a-z0-9_\s-]/", "", $string);
+        $string = preg_replace("/[\s-]+/", " ", $string);
+        $string = preg_replace("/[\s_]/", "-", $string);
+        return $string;
+    }
+
     //////////////// READ ALL LISTINGS ////////////////////
     // read products
     function read(){
@@ -269,14 +277,14 @@ class Product{
     }
 
     function readAllCategories () {
-        $query = "SELECT DISTINCT categoriesName, categoryID  FROM " . $this->categories_table;
+        $query = "SELECT DISTINCT categoriesName, categoryID, categoriesNameAlias  FROM " . $this->categories_table;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();    
         return $stmt;
     }
 
     function locationByCategories ($category_name) {
-        $query = "SELECT * FROM " . $this->location_table . " l INNER JOIN " . $this->categories_table . " c ON l.locationId = c.locationId WHERE c.categoriesName = $category_name " ;
+        $query = "SELECT * FROM " . $this->location_table . " l INNER JOIN " . $this->categories_table . " c ON l.locationId = c.locationId WHERE c.categoriesNameAlias = $category_name ";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
@@ -417,16 +425,18 @@ function create(){
             SET
                 locationId= $lastId,
                 categoryID=:categoryID,
-                categoriesName=:categoriesName";
-        
+                categoriesName=:categoriesName,
+                categoriesNameAlias=:categoriesNameAlias";
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
                 $this->categoryID=htmlspecialchars(strip_tags($value->id));
                 $this->categoriesName=htmlspecialchars(strip_tags($value->name));
+                $categoriesNameAlias = $this->seoUrl($this->categoriesName);
                 // bind values
                 $insertStmt->bindParam(":categoryID", $this->categoryID);
                 $insertStmt->bindParam(":categoriesName", $this->categoriesName);
+                $insertStmt->bindParam(":categoriesNameAlias", $categoriesNameAlias);
                 $insertStmt->execute();
             }
         // End of Categories insert Code...
@@ -1075,16 +1085,19 @@ function update(){
             SET
                 locationId=$this->id,
                 categoryID=:categoryID,
-                categoriesName=:categoriesName";
+                categoriesName=:categoriesName,
+                categoriesNameAlias=:categoriesNameAlias";
         
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
                 $this->categoryID=htmlspecialchars(strip_tags($value->id));
                 $this->categoriesName=htmlspecialchars(strip_tags($value->name));
+                $categoriesNameAlias = $this->seoUrl($this->categoriesName);
                 // bind values
                 $insertStmt->bindParam(":categoryID", $this->categoryID);
                 $insertStmt->bindParam(":categoriesName", $this->categoriesName);
+                $insertStmt->bindParam(":categoriesNameAlias", $categoriesNameAlias);
                 $insertStmt->execute();
             }
         // End of Categories insert Code...

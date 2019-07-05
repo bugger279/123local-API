@@ -21,7 +21,8 @@ if ($categoryCount > 0) {
         extract($row);
         $category_arr = [
             "categoryID" => $categoryID,
-            "categoryName" => $categoriesName
+            "categoryName" => $categoriesName,
+            "categoriesNameAlias" => $categoriesNameAlias
         ];
         array_push($categories_arr["categories"], $category_arr);
     }

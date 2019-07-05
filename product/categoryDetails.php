@@ -14,7 +14,7 @@ $db = $database->getConnection();
  
 // initialize object
 $product = new Product($db);
-$category_name=isset($_GET["cat_name"]) ? $_GET["cat_name"] : "";
+$category_name=isset($_GET["category"]) ? $_GET["category"] : "";
 // read products will be here
 if (empty($category_name)){
     http_response_code(400);

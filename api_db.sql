@@ -2,10 +2,10 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 30, 2019 at 08:43 AM
--- Server version: 10.1.40-MariaDB
--- PHP Version: 7.1.29
+-- Host: localhost:3306
+-- Generation Time: Jul 04, 2019 at 11:28 AM
+-- Server version: 5.7.26
+-- PHP Version: 7.2.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `api_db`
+-- Database: `local_123localyext`
 --
 
 -- --------------------------------------------------------
@@ -41,8 +41,16 @@ CREATE TABLE `associations` (
 INSERT INTO `associations` (`associationsId`, `locationId`, `associationsName`) VALUES
 (8, 1, 'Association One'),
 (9, 2, 'Association One'),
-(18, 5, 'BBA Accrediated'),
-(19, 5, 'Upwork');
+(30, 7, 'BBA Accrediated'),
+(31, 7, 'Upwork'),
+(42, 9, 'BBA Accrediated'),
+(43, 9, 'Upwork'),
+(50, 10, 'BBA Accrediated'),
+(51, 10, 'Upwork'),
+(54, 8, 'BBA Accrediated'),
+(55, 8, 'Upwork'),
+(56, 13, 'BBA Accrediated'),
+(57, 13, 'Upwork');
 
 -- --------------------------------------------------------
 
@@ -65,8 +73,16 @@ INSERT INTO `brands` (`brandsId`, `locationId`, `brandsName`) VALUES
 (2, 1, 'Denim'),
 (3, 2, 'Dolce Gabbana'),
 (4, 2, 'Elvin'),
-(13, 5, 'Divi Theme'),
-(14, 5, 'Wordpress');
+(25, 7, 'Divi Theme'),
+(26, 7, 'Wordpress'),
+(37, 9, 'Divi Theme'),
+(38, 9, 'Wordpress'),
+(45, 10, 'Divi Theme'),
+(46, 10, 'Wordpress'),
+(49, 8, 'Divi Theme'),
+(50, 8, 'Wordpress'),
+(51, 13, 'Divi Theme'),
+(52, 13, 'Wordpress');
 
 -- --------------------------------------------------------
 
@@ -90,8 +106,16 @@ INSERT INTO `categories` (`categoriesId`, `categoryID`, `locationId`, `categorie
 (2, 12, 1, 'Mexican Restaurants'),
 (3, 10, 2, 'Chinese Restaurants'),
 (4, 10, 2, 'Uncle\'s Restaurants'),
-(13, 21, 5, 'Web Development'),
-(14, 22, 5, 'Web Designing');
+(25, 21, 7, 'Web Development'),
+(26, 22, 7, 'Web Designing'),
+(37, 21, 9, 'Web Development'),
+(38, 22, 9, 'Web Designing'),
+(45, 99, 10, 'Balling Hard'),
+(46, 4999, 10, 'Getting money'),
+(49, 21, 8, 'Web Development'),
+(50, 22, 8, 'Web Designing'),
+(51, 21, 13, 'Web Development'),
+(52, 22, 13, 'Web Designing');
 
 -- --------------------------------------------------------
 
@@ -121,7 +145,10 @@ INSERT INTO `comments` (`commentId`, `reviewId`, `commentTimestamp`, `commentAut
 (5, 3, '2019-05-15 13:26:48', 'Lionel Messi', 'This year we will win treble too..... Forca BARCA', 'https://www.barcelona.com/lionelMessi', 0),
 (6, 3, '2019-05-15 13:26:48', 'Lionel Messi', 'This year we will win treble too..... Forca BARCA', 'https://www.barcelona.com/lionelMessi', 0),
 (7, 4, '2019-05-15 13:26:48', 'Lionel Messi', 'This year we will win treble too..... Forca BARCA', 'https://www.barcelona.com/lionelMessi', 0),
-(8, 4, '2019-05-15 13:26:48', 'Lionel Messi', 'This year we will win treble too..... Forca BARCA', 'https://www.barcelona.com/lionelMessi', 0);
+(8, 4, '2019-05-15 13:26:48', 'Lionel Messi', 'This year we will win treble too..... Forca BARCA', 'https://www.barcelona.com/lionelMessi', 0),
+(10, 7, '2019-06-19 11:44:45', 'Author Name', 'Comment Content', 'authorPhotoUrl.com/link.png', 0),
+(11, 8, '2019-06-19 11:44:51', 'Author Name', 'Comment Content', 'authorPhotoUrl.com/link.png', 0),
+(12, 8, '2019-06-20 07:12:38', 'Author Name', 'Comment Content', 'authorPhotoUrl.com/link.png', 0);
 
 -- --------------------------------------------------------
 
@@ -145,9 +172,21 @@ INSERT INTO `emails` (`emailsId`, `locationId`, `emailsAddress`, `emailsDescript
 (2, 1, 'info@bbq.com', 'Customer Service'),
 (3, 2, 'uncleskitchen2336@gmail.com', 'Owner\'s email'),
 (4, 2, 'info@bbq.com', 'Customer Service'),
-(17, 5, 'velocity.consult@gmail.com', 'Gmails email'),
-(18, 5, 'info@velocityconsultancy.com', 'Owners emails'),
-(19, 5, 'developers@velocityconsultancy.com', 'Employees emails');
+(35, 7, 'velocity.consult@gmail.com', 'Gmails email'),
+(36, 7, 'info@velocityconsultancy.com', 'Owners emails'),
+(37, 7, 'developers@velocityconsultancy.com', 'Employees emails'),
+(53, 9, 'velocity.consult@gmail.com', 'Gmails email'),
+(54, 9, 'info@velocityconsultancy.com', 'Owners emails'),
+(55, 9, 'developers@velocityconsultancy.com', 'Employees emails'),
+(65, 10, 'velocity.consult@gmail.com', 'Gmails email'),
+(66, 10, 'info@velocityconsultancy.com', 'Owners emails'),
+(67, 10, 'developers@velocityconsultancy.com', 'Employees emails'),
+(71, 8, 'velocity.consult@gmail.com', 'Gmails email'),
+(72, 8, 'info@velocityconsultancy.com', 'Owners emails'),
+(73, 8, 'developers@velocityconsultancy.com', 'Employees emails'),
+(74, 13, 'velocity.consult@gmail.com', 'Gmails email'),
+(75, 13, 'info@velocityconsultancy.com', 'Owners emails'),
+(76, 13, 'developers@velocityconsultancy.com', 'Employees emails');
 
 -- --------------------------------------------------------
 
@@ -169,9 +208,19 @@ CREATE TABLE `friday` (
 INSERT INTO `friday` (`fridayId`, `locationId`, `starts`, `ends`) VALUES
 (5, 2, '08:00:00', '08:00:00'),
 (6, 2, '08:00:00', '08:00:00'),
-(19, 5, '10:00:00', '13:30:00'),
-(20, 5, '14:30:00', '17:00:00'),
-(21, 5, '17:30:00', '19:20:00');
+(37, 7, '10:00:00', '13:30:00'),
+(38, 7, '14:30:00', '17:00:00'),
+(39, 7, '17:30:00', '19:20:00'),
+(55, 9, '10:00:00', '13:30:00'),
+(56, 9, '14:30:00', '17:00:00'),
+(57, 9, '17:30:00', '19:20:00'),
+(67, 10, '10:00:00', '14:00:00'),
+(71, 8, '10:00:00', '13:30:00'),
+(72, 8, '14:30:00', '17:00:00'),
+(73, 8, '17:30:00', '19:20:00'),
+(74, 13, '10:00:00', '13:30:00'),
+(75, 13, '14:30:00', '17:00:00'),
+(76, 13, '17:30:00', '19:20:00');
 
 -- --------------------------------------------------------
 
@@ -201,10 +250,26 @@ INSERT INTO `images` (`imagesId`, `locationId`, `width`, `imagesType`, `imagesUr
 (6, 2, 284, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/284x100.jpg', 100),
 (7, 2, 50, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/50x40.jpg', 40),
 (8, 2, 200, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/200x150.jpg', 150),
-(25, 5, 100, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/100x100.jpg', 100),
-(26, 5, 284, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/284x100.jpg', 100),
-(27, 5, 50, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/50x40.jpg', 40),
-(28, 5, 200, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/200x150.jpg', 150);
+(49, 7, 100, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/100x100.jpg', 100),
+(50, 7, 284, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/284x100.jpg', 100),
+(51, 7, 50, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/50x40.jpg', 40),
+(52, 7, 200, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/200x150.jpg', 150),
+(73, 9, 100, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/100x100.jpg', 100),
+(74, 9, 284, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/284x100.jpg', 100),
+(75, 9, 50, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/50x40.jpg', 40),
+(76, 9, 200, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/200x150.jpg', 150),
+(89, 10, 100, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/100x100.jpg', 100),
+(90, 10, 284, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/284x100.jpg', 100),
+(91, 10, 50, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/50x40.jpg', 40),
+(92, 10, 200, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/200x150.jpg', 150),
+(97, 8, 100, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/100x100.jpg', 100),
+(98, 8, 284, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/284x100.jpg', 100),
+(99, 8, 50, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/50x40.jpg', 40),
+(100, 8, 200, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/200x150.jpg', 150),
+(101, 13, 100, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/100x100.jpg', 100),
+(102, 13, 284, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/284x100.jpg', 100),
+(103, 13, 50, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/50x40.jpg', 40),
+(104, 13, 200, 'GALLERY', 'https://a.mktgcdn.com/p/oke9u1_VqsR57lFv2rIe9SWj0H--fLHAhCsDMwpaTUs/200x150.jpg', 150);
 
 -- --------------------------------------------------------
 
@@ -227,11 +292,31 @@ INSERT INTO `keywords` (`keywordsId`, `locationId`, `keywordsName`) VALUES
 (2, 1, 'keywordTwo'),
 (3, 2, 'keywordThree'),
 (4, 2, 'keywordFour'),
-(25, 5, 'Web Development'),
-(26, 5, 'SEO'),
-(27, 5, 'Graphics'),
-(28, 5, 'API'),
-(29, 5, 'Web Design');
+(55, 7, 'Web Development'),
+(56, 7, 'SEO'),
+(57, 7, 'Graphics'),
+(58, 7, 'API'),
+(59, 7, 'Web Design'),
+(85, 9, 'Web Development'),
+(86, 9, 'SEO'),
+(87, 9, 'Graphics'),
+(88, 9, 'API'),
+(89, 9, 'Web Design'),
+(105, 10, 'Web Development'),
+(106, 10, 'SEO'),
+(107, 10, 'Graphics'),
+(108, 10, 'API'),
+(109, 10, 'Web Design'),
+(115, 8, 'Web Development'),
+(116, 8, 'SEO'),
+(117, 8, 'Graphics'),
+(118, 8, 'API'),
+(119, 8, 'Web Design'),
+(120, 13, 'Web Development'),
+(121, 13, 'SEO'),
+(122, 13, 'Graphics'),
+(123, 13, 'API'),
+(124, 13, 'Web Design');
 
 -- --------------------------------------------------------
 
@@ -254,10 +339,18 @@ INSERT INTO `languages` (`languagesId`, `locationId`, `languagesName`) VALUES
 (2, 2, 'Language Two'),
 (3, 1, 'Language One'),
 (4, 1, 'Language Two'),
-(21, 5, 'English'),
-(22, 5, 'Hindi'),
-(23, 5, 'Gujarati'),
-(24, 5, 'Marathi');
+(45, 7, 'English'),
+(46, 7, 'Hindi'),
+(47, 7, 'Gujarati'),
+(48, 7, 'Marathi'),
+(61, 9, 'English'),
+(62, 9, 'Hindi Updated'),
+(73, 10, 'English'),
+(74, 10, 'Hindi Updated'),
+(77, 8, 'English'),
+(78, 8, 'Hindi Updated'),
+(79, 13, 'English'),
+(80, 13, 'Hindi Updated');
 
 -- --------------------------------------------------------
 
@@ -282,8 +375,16 @@ INSERT INTO `lists` (`listsId`, `locationId`, `listsName`, `listsDescription`, `
 (2, 1, 'See My Products', 'Products and Services', 'PRODUCTS'),
 (3, 2, 'Services We Offer', 'Products and Services', 'PRODUCTS'),
 (4, 2, 'See My Products', 'Products and Services', 'PRODUCTS'),
-(13, 5, 'Services We Offer', 'Products and Services', 'PRODUCTS'),
-(14, 5, 'See My Products', 'Products and Services', 'PRODUCTS');
+(25, 7, 'Services We Offer', 'Products and Services', 'PRODUCTS'),
+(26, 7, 'See My Products', 'Products and Services', 'PRODUCTS'),
+(37, 9, 'Services We Offer', 'Products and Services', 'PRODUCTS'),
+(38, 9, 'See My Products', 'Products and Services', 'PRODUCTS'),
+(45, 10, 'Services We Offer', 'Products and Services', 'PRODUCTS'),
+(46, 10, 'See My Products', 'Products and Services', 'PRODUCTS'),
+(49, 8, 'Services We Offer', 'Products and Services', 'PRODUCTS'),
+(50, 8, 'See My Products', 'Products and Services', 'PRODUCTS'),
+(51, 13, 'Services We Offer', 'Products and Services', 'PRODUCTS'),
+(52, 13, 'See My Products', 'Products and Services', 'PRODUCTS');
 
 -- --------------------------------------------------------
 
@@ -312,7 +413,7 @@ CREATE TABLE `locations` (
   `hoursDisplayText` varchar(100) NOT NULL,
   `specialOfferMessage` text NOT NULL,
   `specialOfferUrl` text NOT NULL,
-  `paymentOptions` text NOT NULL,
+  `paymentOptions` text,
   `twitterHandle` text NOT NULL,
   `facebookPageUrl` text NOT NULL,
   `attributionImageWidth` int(10) NOT NULL,
@@ -330,7 +431,12 @@ CREATE TABLE `locations` (
 
 INSERT INTO `locations` (`locationId`, `yextID`, `status`, `name`, `address`, `visible`, `address2`, `city`, `displayAddress`, `countryCode`, `postalCode`, `state`, `description`, `displayLatitude`, `displayLongitude`, `routableLatitude`, `routableLongitude`, `hoursDisplayText`, `specialOfferMessage`, `specialOfferUrl`, `paymentOptions`, `twitterHandle`, `facebookPageUrl`, `attributionImageWidth`, `attributionImageDescription`, `attributionImageUrl`, `attributionImageHeight`, `attributionUrl`, `closed`, `yearEstablished`) VALUES
 (1, 123456, 'ACTIVE', 'Kit\'s Kitchen', '2336 Gramercy', 'true', 'Second Floor', 'Houston', 'Near the astrodome', 'US', '77030', 'TX', 'Come on in and check out our newest additions!', '29.70468', '-95.41429', '29.70468', '-95.41429', 'M-Sa 9am-10pm, Su Closed', 'Sign up to receive our deals!', 'https://kits-kitchen.movylo.com/index.php?pag=get_deals&s=yext', 'American Express, Cash, Check, Traveler\'s Check, Visa', 'KitsKitchenTX', 'https://www.facebook.com/thebestbarbecueintexasthatanyoneiknowoflikestoeat/', 143, 'Yext PowerListings', 'http://www.yextstatic.com/cms/pl-synced/pl-synced.png', 20, 'http://www.yext.com/', 'false', 1992),
-(2, 123456, 'ACTIVE', 'Kit\'s Kitchen', '2336 Gramercy', 'true', 'Second Floor', 'Houston', 'Near the astrodome', 'US', '77030', 'TX', 'Come on in and check out our newest additions!', '29.70468', '-95.41429', '29.70468', '-95.41429', 'M-Sa 9am-10pm, Su Closed', 'Sign up to receive our deals!', 'https://kits-kitchen.movylo.com/index.php?pag=get_deals&s=yext', 'American Express, Cash, Check, Traveler\'s Check, Visa', 'KitsKitchenTX', 'https://www.facebook.com/thebestbarbecueintexasthatanyoneiknowoflikestoeat/', 143, 'Yext PowerListings', 'http://www.yextstatic.com/cms/pl-synced/pl-synced.png', 20, 'http://www.yext.com/', 'false', 1992);
+(2, 123456, 'ACTIVE', 'Kit\'s Kitchen', '2336 Gramercy', 'true', 'Second Floor', 'Houston', 'Near the astrodome', 'US', '77030', 'TX', 'Come on in and check out our newest additions!', '29.70468', '-95.41429', '29.70468', '-95.41429', 'M-Sa 9am-10pm, Su Closed', 'Sign up to receive our deals!', 'https://kits-kitchen.movylo.com/index.php?pag=get_deals&s=yext', 'American Express, Cash, Check, Traveler\'s Check, Visa', 'KitsKitchenTX', 'https://www.facebook.com/thebestbarbecueintexasthatanyoneiknowoflikestoeat/', 143, 'Yext PowerListings', 'http://www.yextstatic.com/cms/pl-synced/pl-synced.png', 20, 'http://www.yext.com/', 'false', 1992),
+(7, 123456, 'ACTIVE', 'Velocity Consultancy', 'Sej Plaza', 'true', 'Ground Floor', 'Mumbai', 'G-4 Sej Plaza, Near Nutun School', 'IN', '400097', 'MH', 'Mumbai\'s number One Web development firm', '29.70468', '-95.41429', '29.70468', '-95.41429', 'Monday-Friday 10am-7pm, Saturaday 10am-2ox Sunday Closed', 'Sign up to receive our deals!', 'https://kits-kitchen.movylo.com/index.php?pag=get_deals', '', 'velocityConsultancy', 'https://www.facebook.com/velocityconsultancy/', 143, 'Yext PowerListings', 'http://www.yextstatic.com/cms/pl-synced/pl-synced.png', 20, 'http://www.yext.com/', 'false', 2008),
+(8, 123456, 'ACTIVE', 'Velocity Consultancy', 'Sej Plaza', 'true', 'Ground Floor', 'Mumbai', 'G-4 Sej Plaza, Near Nutun School', 'IN', '400097', 'MH', 'Mumbai\'s number One Web development firm', '29.70468', '-95.41429', '29.70468', '-95.41429', 'Monday-Friday 10am-7pm, Saturaday 10am-2ox Sunday Closed', 'Sign up to receive our deals!', 'https://kits-kitchen.movylo.com/index.php?pag=get_deals', '', 'velocityConsultancy', 'https://www.facebook.com/velocityconsultancy/', 143, 'Yext PowerListings', 'http://www.yextstatic.com/cms/pl-synced/pl-synced.png', 20, 'http://www.yext.com/', 'false', 2008),
+(9, 123456, 'SUPPRESSED', 'Velocity Consultancy', 'Sej Plaza', 'true', 'Ground Floor', 'Mumbai', 'G-4 Sej Plaza, Near Nutun School', 'IN', '400097', 'MH', 'Mumbai\'s number One Web development firm', '29.70468', '-95.41429', '29.70468', '-95.41429', 'Monday-Friday 10am-7pm, Saturaday 10am-2ox Sunday Closed', 'Sign up to receive our deals!', 'https://kits-kitchen.movylo.com/index.php?pag=get_deals', '', 'velocityConsultancy', 'https://www.facebook.com/velocityconsultancy/', 143, 'Yext PowerListings', 'http://www.yextstatic.com/cms/pl-synced/pl-synced.png', 20, 'http://www.yext.com/', 'false', 2008),
+(10, 123456, 'ACTIVE', 'The Library', 'Sej Plaza', 'true', 'Ground Floor', 'Mumbai', 'G-4 Sej Plaza, Near Nutun School', 'IN', '400097', 'MH', 'Mumbai\'s number One Web development firm', '29.70468', '-95.41429', '29.70468', '-95.41429', 'Monday-Friday 10am-7pm, Saturaday 10am-2ox Sunday Closed', 'Sign up to receive our deals!', 'https://kits-kitchen.movylo.com/index.php?pag=get_deals', NULL, 'velocity_after_dark', 'https://www.facebook.com/velocityconsultancy/', 143, 'Yext PowerListings', 'http://www.yextstatic.com/cms/pl-synced/pl-synced.png', 20, 'http://www.yext.com/', 'false', 2008),
+(13, 123456, 'ACTIVE', 'Velocity Consultancy', 'Sej Plaza', 'true', 'Ground Floor', 'Mumbai', 'G-4 Sej Plaza, Near Nutun School', 'IN', '400097', 'MH', 'Mumbai\'s number One Web development firm', '29.70468', '-95.41429', '29.70468', '-95.41429', 'Monday-Friday 10am-7pm, Saturaday 10am-2ox Sunday Closed', 'Sign up to receive our deals!', 'https://kits-kitchen.movylo.com/index.php?pag=get_deals', NULL, 'velocityConsultancy', 'https://www.facebook.com/velocityconsultancy/', 143, 'Yext PowerListings', 'http://www.yextstatic.com/cms/pl-synced/pl-synced.png', 20, 'http://www.yext.com/', 'false', 2008);
 
 -- --------------------------------------------------------
 
@@ -352,9 +458,19 @@ CREATE TABLE `monday` (
 INSERT INTO `monday` (`mondayId`, `locationId`, `starts`, `ends`) VALUES
 (1, 2, '08:00:00', '15:00:00'),
 (2, 2, '17:00:00', '23:00:00'),
-(15, 5, '10:00:00', '13:30:00'),
-(16, 5, '14:30:00', '17:00:00'),
-(17, 5, '17:30:00', '19:20:00');
+(33, 7, '10:00:00', '13:30:00'),
+(34, 7, '14:30:00', '17:00:00'),
+(35, 7, '17:30:00', '19:20:00'),
+(51, 9, '10:00:00', '13:30:00'),
+(52, 9, '14:30:00', '17:00:00'),
+(53, 9, '17:30:00', '19:20:00'),
+(63, 10, '10:00:00', '13:30:00'),
+(67, 8, '10:00:00', '13:30:00'),
+(68, 8, '14:30:00', '17:00:00'),
+(69, 8, '17:30:00', '19:20:00'),
+(70, 13, '10:00:00', '13:30:00'),
+(71, 13, '14:30:00', '17:00:00'),
+(72, 13, '17:30:00', '19:20:00');
 
 -- --------------------------------------------------------
 
@@ -382,10 +498,27 @@ INSERT INTO `phones` (`phoneId`, `locationId`, `numbers`, `phonesCountryCode`, `
 (4, 2, '2814105479', '1', 'Main', 'MAIN'),
 (5, 2, '4568972254', '1', 'Alt', 'ALTERNATE'),
 (6, 2, '8005467892', '1', 'Toll Free', 'TOLL_FREE'),
-(23, 5, '022-12345678', '+91', 'Office', 'Office'),
-(24, 5, '1234567890', '+91', 'Alt', 'Alt'),
-(25, 5, '7894561230', '+91', 'Toll Free', 'Toll Free'),
-(26, 5, '4578960231', '+91', 'Road Side', 'Road Side');
+(47, 7, '022-12345678', '+91', 'Office', 'Office'),
+(48, 7, '1234567890', '+91', 'Alt', 'Alt'),
+(49, 7, '7894561230', '+91', 'Toll Free', 'Toll Free'),
+(50, 7, '4578960231', '+91', 'Road Side', 'Road Side'),
+(71, 9, '022-12345678', '+91', 'Office', 'Office'),
+(72, 9, '022-12345679', '+91', 'Office2', 'Office2'),
+(73, 9, '1234567890', '+91', 'Alt', 'Alt'),
+(74, 9, '7894561230', '+91', 'Toll Free', 'Toll Free'),
+(75, 9, '4578960231', '+91', 'Road Side', 'Road Side'),
+(88, 10, '022-12345678', '+91', 'Office', 'Office'),
+(89, 10, '1234567890', '+91', 'Alt', 'Alt'),
+(90, 10, '7894561230', '+91', 'Toll Free', 'Toll Free'),
+(91, 10, '4578960231', '+91', 'Road Side', 'Road Side'),
+(96, 8, '022-12345678', '+91', 'Office', 'Office'),
+(97, 8, '1234567890', '+91', 'Alt', 'Alt'),
+(98, 8, '7894561230', '+91', 'Toll Free', 'Toll Free'),
+(99, 8, '4578960231', '+91', 'Road Side', 'Road Side'),
+(100, 13, '022-12345678', '+91', 'Office', 'Office'),
+(101, 13, '1234567890', '+91', 'Alt', 'Alt'),
+(102, 13, '7894561230', '+91', 'Toll Free', 'Toll Free'),
+(103, 13, '4578960231', '+91', 'Road Side', 'Road Side');
 
 -- --------------------------------------------------------
 
@@ -408,8 +541,16 @@ INSERT INTO `products` (`productsId`, `locationId`, `productsName`) VALUES
 (2, 1, 'Product Two'),
 (3, 2, 'Product One'),
 (4, 2, 'Product Two'),
-(13, 5, 'Product One'),
-(14, 5, 'Product Two');
+(25, 7, 'Product One'),
+(26, 7, 'Product Two'),
+(37, 9, 'Product One'),
+(38, 9, 'Product Two'),
+(45, 10, 'Product One'),
+(46, 10, 'Product Two'),
+(49, 8, 'Product One'),
+(50, 8, 'Product Two'),
+(51, 13, 'Product One'),
+(52, 13, 'Product Two');
 
 -- --------------------------------------------------------
 
@@ -430,7 +571,7 @@ CREATE TABLE `reviews` (
   `reviewSource` text NOT NULL,
   `reviewRating` float(2,1) NOT NULL,
   `reviewGenerated` tinyint(1) DEFAULT '0',
-  `reviewFlagReason` varchar(100) NOT NULL
+  `reviewFlagReason` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -442,7 +583,11 @@ INSERT INTO `reviews` (`reviewId`, `locationId`, `reviewStatus`, `reviewTimestam
 (2, 1, 'ACTIVE', '2019-05-06 08:33:38', 'Cristiano Ronaldo', 'http://www.somelinkto.uefa/cristianoRonaldo.png', 'We are the champions.', 'Winning UEFA Cup is best of ALL and losing it means nothing.', 'https://www.somelink.uefa/myreviewUrl', 'MyOfficialSite', 4.0, 0, ''),
 (3, 2, 'ACTIVE', '2019-05-06 08:33:38', 'Cristiano Ronaldo', 'http://www.somelinkto.uefa/cristianoRonaldo.png', 'We are the champions.', 'Winning UEFA Cup is best of ALL and losing it means nothing.', 'https://www.somelink.uefa/myreviewUrl', 'MyOfficialSite', 4.0, 0, ''),
 (4, 2, 'ACTIVE', '2019-05-06 08:33:38', 'Cristiano Ronaldo', 'http://www.somelinkto.uefa/cristianoRonaldo.png', 'We are the champions.', 'Winning UEFA Cup is best of ALL and losing it means nothing.', 'https://www.somelink.uefa/myreviewUrl', 'MyOfficialSite', 3.0, 0, ''),
-(5, 2, 'ACTIVE', '2019-05-06 08:33:38', 'Cristiano Ronaldo', 'http://www.somelinkto.uefa/cristianoRonaldo.png', 'We are the champions.', 'Winning UEFA Cup is best of ALL and losing it means nothing.', 'https://www.somelink.uefa/myreviewUrl', 'MyOfficialSite', 5.0, 0, '');
+(5, 8, 'ACTIVE', '2019-05-06 08:33:38', 'Cristiano Ronaldo', 'http://www.somelinkto.uefa/cristianoRonaldo.png', 'We are the champions.', 'Winning UEFA Cup is best of ALL and losing it means nothing.', 'https://www.somelink.uefa/myreviewUrl', 'MyOfficialSite', 5.0, 0, ''),
+(6, 8, 'ACTIVE', '2019-05-06 08:33:38', 'Cristiano Ronaldo', 'http://www.somelinkto.uefa/cristianoRonaldo.png', 'We are the champions.', 'Winning UEFA Cup is best of ALL and losing it means nothing.', 'https://www.somelink.uefa/myreviewUrl', 'MyOfficialSite', 4.0, 0, ''),
+(7, 7, 'ACTIVE', '2019-05-06 08:33:38', 'Cristiano Ronaldo', 'http://www.somelinkto.uefa/cristianoRonaldo.png', 'We are the champions.', 'Winning UEFA Cup is best of ALL and losing it means nothing.', 'https://www.somelink.uefa/myreviewUrl', 'MyOfficialSite', 2.0, 0, ''),
+(8, 7, 'ACTIVE', '2019-05-06 08:33:38', 'Cristiano Ronaldo', 'http://www.somelinkto.uefa/cristianoRonaldo.png', 'We are the champions.', 'Winning UEFA Cup is best of ALL and losing it means nothing.', 'https://www.somelink.uefa/myreviewUrl', 'MyOfficialSite', 4.0, 0, ''),
+(9, 7, 'ACTIVE', '2019-06-20 08:45:53', 'Author Name', 'somerultoauthorphoto.com/123.jpg', 'Review Title', 'Review Content', 'reviewurl.com/reviews', 'Review Source', 4.0, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -464,7 +609,10 @@ CREATE TABLE `saturday` (
 INSERT INTO `saturday` (`saturdayId`, `locationId`, `starts`, `ends`) VALUES
 (5, 2, '08:00:00', '08:00:00'),
 (6, 2, '08:00:00', '08:00:00'),
-(11, 5, '10:00:00', '14:00:00');
+(17, 7, '10:00:00', '14:00:00'),
+(23, 9, '10:00:00', '14:00:00'),
+(28, 8, '10:00:00', '14:00:00'),
+(29, 13, '10:00:00', '14:00:00');
 
 -- --------------------------------------------------------
 
@@ -487,9 +635,13 @@ INSERT INTO `services` (`servicesId`, `locationId`, `servicesName`) VALUES
 (4, 1, 'Fully customised Wesbite'),
 (5, 2, 'Fully Opimized Wesbite'),
 (6, 2, 'Fully customised Wesbite'),
-(19, 5, 'Fully Opimized Wesbite'),
-(20, 5, 'Fully Customized Wesbite'),
-(21, 5, 'SEO Friendly Wesbite');
+(37, 7, 'Fully Opimized Wesbite'),
+(38, 7, 'Fully Customized Wesbite'),
+(39, 7, 'SEO Friendly Wesbite'),
+(47, 9, 'Fully Opimized Wesbite Once'),
+(55, 10, 'Fully Opimized Wesbite Once'),
+(57, 8, 'Fully Opimized Wesbite Once'),
+(58, 13, 'Fully Opimized Wesbite Once');
 
 -- --------------------------------------------------------
 
@@ -511,14 +663,46 @@ INSERT INTO `specialities` (`specialitiesId`, `locationId`, `specialitiesName`) 
 (1, 1, 'Specialities One'),
 (2, 2, 'Specialities Two'),
 (3, 2, 'Speciality Three'),
-(36, 5, 'PHP'),
-(37, 5, 'NodeJS'),
-(38, 5, 'Express'),
-(39, 5, 'MongoDB'),
-(40, 5, 'HTML'),
-(41, 5, 'CSS'),
-(42, 5, 'Javascript'),
-(43, 5, 'Angular');
+(84, 7, 'PHP'),
+(85, 7, 'NodeJS'),
+(86, 7, 'Express'),
+(87, 7, 'MongoDB'),
+(88, 7, 'HTML'),
+(89, 7, 'CSS'),
+(90, 7, 'Javascript'),
+(91, 7, 'Angular'),
+(132, 9, 'PHP'),
+(133, 9, 'NodeJS'),
+(134, 9, 'Express'),
+(135, 9, 'MongoDB'),
+(136, 9, 'HTML'),
+(137, 9, 'CSS'),
+(138, 9, 'Javascript'),
+(139, 9, 'Angular'),
+(164, 10, 'PHP'),
+(165, 10, 'NodeJS'),
+(166, 10, 'Express'),
+(167, 10, 'MongoDB'),
+(168, 10, 'HTML'),
+(169, 10, 'CSS'),
+(170, 10, 'Javascript'),
+(171, 10, 'Angular'),
+(180, 8, 'PHP'),
+(181, 8, 'NodeJS'),
+(182, 8, 'Express'),
+(183, 8, 'MongoDB'),
+(184, 8, 'HTML'),
+(185, 8, 'CSS'),
+(186, 8, 'Javascript'),
+(187, 8, 'Angular'),
+(188, 13, 'PHP'),
+(189, 13, 'NodeJS'),
+(190, 13, 'Express'),
+(191, 13, 'MongoDB'),
+(192, 13, 'HTML'),
+(193, 13, 'CSS'),
+(194, 13, 'Javascript'),
+(195, 13, 'Angular');
 
 -- --------------------------------------------------------
 
@@ -553,9 +737,21 @@ CREATE TABLE `thursday` (
 INSERT INTO `thursday` (`thursdayId`, `locationId`, `starts`, `ends`) VALUES
 (5, 2, '08:00:00', '08:00:00'),
 (6, 2, '08:00:00', '08:00:00'),
-(19, 5, '10:00:00', '13:30:00'),
-(20, 5, '14:30:00', '17:00:00'),
-(21, 5, '17:30:00', '19:20:00');
+(37, 7, '10:00:00', '13:30:00'),
+(38, 7, '14:30:00', '17:00:00'),
+(39, 7, '17:30:00', '19:20:00'),
+(55, 9, '10:00:00', '13:30:00'),
+(56, 9, '14:30:00', '17:00:00'),
+(57, 9, '17:30:00', '19:20:00'),
+(67, 10, '10:00:00', '13:30:00'),
+(68, 10, '14:30:00', '17:00:00'),
+(69, 10, '17:30:00', '19:20:00'),
+(73, 8, '10:00:00', '13:30:00'),
+(74, 8, '14:30:00', '17:00:00'),
+(75, 8, '17:30:00', '19:20:00'),
+(76, 13, '10:00:00', '13:30:00'),
+(77, 13, '14:30:00', '17:00:00'),
+(78, 13, '17:30:00', '19:20:00');
 
 -- --------------------------------------------------------
 
@@ -577,9 +773,21 @@ CREATE TABLE `tuesday` (
 INSERT INTO `tuesday` (`tuesdayId`, `locationId`, `starts`, `ends`) VALUES
 (3, 2, '08:00:00', '08:00:00'),
 (4, 2, '08:00:00', '08:00:00'),
-(17, 5, '10:00:00', '13:30:00'),
-(18, 5, '14:30:00', '17:00:00'),
-(19, 5, '17:30:00', '19:20:00');
+(35, 7, '10:00:00', '13:30:00'),
+(36, 7, '14:30:00', '17:00:00'),
+(37, 7, '17:30:00', '19:20:00'),
+(53, 9, '10:00:00', '13:30:00'),
+(54, 9, '14:30:00', '17:00:00'),
+(55, 9, '17:30:00', '19:20:00'),
+(65, 10, '10:00:00', '13:30:00'),
+(66, 10, '14:30:00', '17:00:00'),
+(67, 10, '17:30:00', '19:20:00'),
+(71, 8, '10:00:00', '13:30:00'),
+(72, 8, '14:30:00', '17:00:00'),
+(73, 8, '17:30:00', '19:20:00'),
+(74, 13, '10:00:00', '13:30:00'),
+(75, 13, '14:30:00', '17:00:00'),
+(76, 13, '17:30:00', '19:20:00');
 
 -- --------------------------------------------------------
 
@@ -609,10 +817,26 @@ INSERT INTO `urls` (`urlsId`, `locationId`, `displayUrl`, `urlsDescription`, `ur
 (6, 2, 'https://app.agendize.com/book/19171870', 'reservation', 'RESERVATION', 'ttps://app.agendize.com/book/19171870'),
 (7, 2, 'http://www.kits-kitchen.com', 'website', 'WEBSITE', 'http://www.kits-kitchen.com'),
 (8, 2, 'http://www.kits-kitchen.com', 'order', 'ORDER', 'http://www.kits-kitchen.com'),
-(25, 5, 'http://www.stevenhightower.net/kk/menu.html', 'menu', 'MENU', 'http://www.stevenhightower.net/kk/menu.html'),
-(26, 5, 'https://app.agendize.com/book/19171870', 'reservation', 'RESERVATION', 'ttps://app.agendize.com/book/19171870'),
-(27, 5, 'http://www.kits-kitchen.com', 'website', 'WEBSITE', 'http://www.kits-kitchen.com'),
-(28, 5, 'http://www.kits-kitchen.com', 'order', 'ORDER', 'http://www.kits-kitchen.com');
+(49, 7, 'http://www.stevenhightower.net/kk/menu.html', 'menu', 'MENU', 'http://www.stevenhightower.net/kk/menu.html'),
+(50, 7, 'https://app.agendize.com/book/19171870', 'reservation', 'RESERVATION', 'ttps://app.agendize.com/book/19171870'),
+(51, 7, 'http://www.kits-kitchen.com', 'website', 'WEBSITE', 'http://www.kits-kitchen.com'),
+(52, 7, 'http://www.kits-kitchen.com', 'order', 'ORDER', 'http://www.kits-kitchen.com'),
+(73, 9, 'http://www.stevenhightower.net/kk/menu.html', 'menu', 'MENU', 'http://www.stevenhightower.net/kk/menu.html'),
+(74, 9, 'https://app.agendize.com/book/19171870', 'reservation', 'RESERVATION', 'ttps://app.agendize.com/book/19171870'),
+(75, 9, 'http://www.kits-kitchen.com', 'website', 'WEBSITE', 'http://www.kits-kitchen.com'),
+(76, 9, 'http://www.kits-kitchen.com', 'order', 'ORDER', 'http://www.kits-kitchen.com'),
+(89, 10, 'http://www.stevenhightower.net/kk/menu.html', 'menu', 'MENU', 'http://www.stevenhightower.net/kk/menu.html'),
+(90, 10, 'https://app.agendize.com/book/19171870', 'reservation', 'RESERVATION', 'ttps://app.agendize.com/book/19171870'),
+(91, 10, 'http://www.kits-kitchen.com', 'website', 'WEBSITE', 'http://www.kits-kitchen.com'),
+(92, 10, 'http://www.kits-kitchen.com', 'order', 'ORDER', 'http://www.kits-kitchen.com'),
+(97, 8, 'http://www.stevenhightower.net/kk/menu.html', 'menu', 'MENU', 'http://www.stevenhightower.net/kk/menu.html'),
+(98, 8, 'https://app.agendize.com/book/19171870', 'reservation', 'RESERVATION', 'ttps://app.agendize.com/book/19171870'),
+(99, 8, 'http://www.kits-kitchen.com', 'website', 'WEBSITE', 'http://www.kits-kitchen.com'),
+(100, 8, 'http://www.kits-kitchen.com', 'order', 'ORDER', 'http://www.kits-kitchen.com'),
+(101, 13, 'http://www.stevenhightower.net/kk/menu.html', 'menu', 'MENU', 'http://www.stevenhightower.net/kk/menu.html'),
+(102, 13, 'https://app.agendize.com/book/19171870', 'reservation', 'RESERVATION', 'ttps://app.agendize.com/book/19171870'),
+(103, 13, 'http://www.kits-kitchen.com', 'website', 'WEBSITE', 'http://www.kits-kitchen.com'),
+(104, 13, 'http://www.kits-kitchen.com', 'order', 'ORDER', 'http://www.kits-kitchen.com');
 
 -- --------------------------------------------------------
 
@@ -636,8 +860,16 @@ INSERT INTO `videos` (`videosId`, `locationId`, `videosUrl`, `videosDescription`
 (2, 1, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'Vimeo Videos'),
 (3, 2, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'youtube Videos'),
 (4, 2, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'Vimeo Videos'),
-(13, 5, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'youtube Videos'),
-(14, 5, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'Vimeo Videos');
+(25, 7, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'youtube Videos'),
+(26, 7, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'Vimeo Videos'),
+(37, 9, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'youtube Videos'),
+(38, 9, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'Vimeo Videos'),
+(45, 10, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'youtube Videos'),
+(46, 10, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'Vimeo Videos'),
+(49, 8, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'youtube Videos'),
+(50, 8, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'Vimeo Videos'),
+(51, 13, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'youtube Videos'),
+(52, 13, 'http://www.youtube.com/watch?v=_pJ5b2ymqtk', 'Vimeo Videos');
 
 -- --------------------------------------------------------
 
@@ -659,9 +891,21 @@ CREATE TABLE `wednesday` (
 INSERT INTO `wednesday` (`wednesdayId`, `locationId`, `starts`, `ends`) VALUES
 (5, 2, '08:00:00', '08:00:00'),
 (6, 2, '08:00:00', '08:00:00'),
-(19, 5, '10:00:00', '13:30:00'),
-(20, 5, '14:30:00', '17:00:00'),
-(21, 5, '17:30:00', '19:20:00');
+(37, 7, '10:00:00', '13:30:00'),
+(38, 7, '14:30:00', '17:00:00'),
+(39, 7, '17:30:00', '19:20:00'),
+(55, 9, '10:00:00', '13:30:00'),
+(56, 9, '14:30:00', '17:00:00'),
+(57, 9, '17:30:00', '19:20:00'),
+(67, 10, '10:00:00', '13:30:00'),
+(68, 10, '14:30:00', '17:00:00'),
+(69, 10, '17:30:00', '19:20:00'),
+(73, 8, '10:00:00', '13:30:00'),
+(74, 8, '14:30:00', '17:00:00'),
+(75, 8, '17:30:00', '19:20:00'),
+(76, 13, '10:00:00', '13:30:00'),
+(77, 13, '14:30:00', '17:00:00'),
+(78, 13, '17:30:00', '19:20:00');
 
 --
 -- Indexes for dumped tables
@@ -819,109 +1063,109 @@ ALTER TABLE `wednesday`
 -- AUTO_INCREMENT for table `associations`
 --
 ALTER TABLE `associations`
-  MODIFY `associationsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `associationsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `brandsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `brandsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categoriesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `categoriesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `commentId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `commentId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `emails`
 --
 ALTER TABLE `emails`
-  MODIFY `emailsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `emailsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `friday`
 --
 ALTER TABLE `friday`
-  MODIFY `fridayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `fridayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `imagesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `imagesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `keywords`
 --
 ALTER TABLE `keywords`
-  MODIFY `keywordsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `keywordsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `languagesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `languagesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=101;
 
 --
 -- AUTO_INCREMENT for table `lists`
 --
 ALTER TABLE `lists`
-  MODIFY `listsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `listsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `locationId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `locationId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `monday`
 --
 ALTER TABLE `monday`
-  MODIFY `mondayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `mondayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `phones`
 --
 ALTER TABLE `phones`
-  MODIFY `phoneId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `phoneId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=128;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `productsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `productsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `reviewId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `reviewId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `saturday`
 --
 ALTER TABLE `saturday`
-  MODIFY `saturdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `saturdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `servicesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `servicesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `specialities`
 --
 ALTER TABLE `specialities`
-  MODIFY `specialitiesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `specialitiesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=212;
 
 --
 -- AUTO_INCREMENT for table `sunday`
@@ -933,31 +1177,31 @@ ALTER TABLE `sunday`
 -- AUTO_INCREMENT for table `thursday`
 --
 ALTER TABLE `thursday`
-  MODIFY `thursdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `thursdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `tuesday`
 --
 ALTER TABLE `tuesday`
-  MODIFY `tuesdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `tuesdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `urls`
 --
 ALTER TABLE `urls`
-  MODIFY `urlsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `urlsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=129;
 
 --
 -- AUTO_INCREMENT for table `videos`
 --
 ALTER TABLE `videos`
-  MODIFY `videosId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `videosId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `wednesday`
 --
 ALTER TABLE `wednesday`
-  MODIFY `wednesdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `wednesdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
