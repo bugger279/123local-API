@@ -17,9 +17,8 @@ $product = new Product($db);
 
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
-
-$field_data = array( "yextID" => $data->yextID, "name" => $data->name, "address" => $data->address->address, "visible" => $data->address->visible, "address2" => $data->address->address2, "city" => $data->address->city, "displayAddress" => $data->address->displayAddress, "countryCode" => $data->address->countryCode, "postalCode" => $data->address->postalCode, "state" => $data->address->state, "description" => $data->description, "displayLatitude" => $data->geoData->displayLatitude, "displayLongitude" => $data->geoData->displayLongitude, "routableLatitude" => $data->geoData->routableLatitude, "routableLongitude" => $data->geoData->routableLongitude, "hoursText->display" => $data->hoursText->display, "specialOfferMessage" => $data->specialOffer->message, "specialOfferUrl" => $data->specialOffer->url, "twitterHandle" => $data->twitterHandle, "facebookPageUrl" => $data->facebookPageUrl, "attribution->Image->Width" => $data->attribution->image->width, "attribution->Image->Description" => $data->attribution->image->description, "attribution->Image->Url" => $data->attribution->image->url, "attribution->Image->Height" => $data->attribution->image->height, "attributionUrl" => $data->attribution->attributionUrl, "closed" => $data->closed, "yearEstablished" => $data->yearEstablished);
-
+// $field_data = array( "yextID" => $data->yextID, "name" => $data->name, "address" => $data->address->address, "visible" => $data->address->visible, "address2" => $data->address->address2, "city" => $data->address->city, "displayAddress" => $data->address->displayAddress, "countryCode" => $data->address->countryCode, "postalCode" => $data->address->postalCode, "state" => $data->address->state, "description" => $data->description, "displayLatitude" => $data->geoData->displayLatitude, "displayLongitude" => $data->geoData->displayLongitude, "routableLatitude" => $data->geoData->routableLatitude, "routableLongitude" => $data->geoData->routableLongitude, "hoursText->display" => $data->hoursText->display, "specialOfferMessage" => $data->specialOffer->message, "specialOfferUrl" => $data->specialOffer->url, "twitterHandle" => $data->twitterHandle, "facebookPageUrl" => $data->facebookPageUrl, "attribution->Image->Width" => $data->attribution->image->width, "attribution->Image->Description" => $data->attribution->image->description, "attribution->Image->Url" => $data->attribution->image->url, "attribution->Image->Height" => $data->attribution->image->height, "attributionUrl" => $data->attribution->attributionUrl, "closed" => $data->closed, "yearEstablished" => $data->yearEstablished);
+$field_data = array( "yextID" => $data->yextID, "name" => $data->name, "address" => $data->address, "address" => $data->address->address, "city" => $data->address->city, "state" => $data->address->state, "postalCode" => $data->address->postalCode, "countryCode" => $data->address->countryCode, "categories" => $data->categories, "displayLatitude" => $data->geoData->displayLatitude, "displayLongitude" => $data->geoData->displayLongitude, "phones" => $data->phones );
 foreach($field_data as $key => $val) {
     if (empty($val)) {
         http_response_code(400);
@@ -36,10 +35,7 @@ if(
     !empty($data->yextID) &&
     !empty($data->name) &&
     !empty($data->address->address) &&
-    !empty($data->address->visible) &&
-    !empty($data->address->address2) &&
     !empty($data->address->city) &&
-    !empty($data->address->displayAddress) &&
     !empty($data->address->countryCode) &&
     !empty($data->address->postalCode) &&
     !empty($data->address->state)
