@@ -81,10 +81,22 @@ if(
     $product->urls = $data->urls;
     $product->twitterHandle = $data->twitterHandle;
     $product->facebookPageUrl = $data->facebookPageUrl;
-    $product->attributionImageWidth = $data->attribution->image->width;
+
+    if (empty($data->attribution->image->width)) {
+        $product->attributionImageWidth = 0;    
+    } else {
+        $product->attributionImageWidth = $data->attribution->image->width;
+    }
+    
     $product->attributionImageDescription = $data->attribution->image->description;
     $product->attributionImageUrl = $data->attribution->image->url;
-    $product->attributionImageHeight = $data->attribution->image->height;
+    
+    if (empty($data->attribution->image->height)) {
+        $product->attributionImageHeight = 0;    
+    } else {
+        $product->attributionImageHeight = $data->attribution->image->height;
+    }
+
     $product->attributionUrl = $data->attribution->attributionUrl;
     $product->keywordsName = $data->keywords;
     $product->lists = $data->lists;
@@ -93,25 +105,19 @@ if(
     $product->brandsName = $data->brands;
     $product->productsName = $data->products;
     $product->servicesName = $data->services;
-    $product->yearEstablished = $data->yearEstablished;
+
+    if (empty($data->yearEstablished)) {
+        $product->yearEstablished = 0;    
+    } else {
+        $product->yearEstablished = $data->yearEstablished;
+    }
+
     $product->associationsName = $data->associations;
     $product->languagesName = $data->languages;
 
     // create the product
     $product->create();
-    // if($product->create()){
-    //     return 1;
-    // }
-    // // if unable to create the product, tell the user
-    // else{
-    //     http_response_code(503);
-    //     echo json_encode(array("issues" => [
-    //         "message" => "Unable to create Location.",
-    //         "status" => "Listing wasn't created.",
-    //         "errorCode" => "503",
-    //         "issue" => "Service is unavailable"
-    //     ]));
-    // }
+
 }
 
 ?>
