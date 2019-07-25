@@ -25,6 +25,7 @@ class Product{
     private $friday_table = "friday";
     private $saturday_table = "saturday";
     private $services_table = "services";
+    private $paymentOption_table = "paymentoptions";
     // Locations object properties
     public $locationId;
     public $yextID;
@@ -194,6 +195,13 @@ class Product{
     
     function readBrands($locationId){
         $query = "SELECT brandsName FROM " . $this->brands_table . " lists WHERE lists.locationId = $locationId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function readPaymentOptions($locationId){
+        $query = "SELECT paymentOptionsName FROM " . $this->paymentOption_table . " lists WHERE lists.locationId = $locationId";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
@@ -616,6 +624,24 @@ function create(){
         }
         // End of Brands insert Code...
 
+        // Payment Insert Code...
+        foreach ($this->paymentOptionsName as $value) {
+            $insertQuery = "INSERT INTO
+                " . $this->paymentOption_table . "
+            SET
+                locationId= $lastId,
+                paymentOptionsName=:paymentOptionsName";
+
+                // prepare query
+                $insertStmt = $this->conn->prepare($insertQuery);
+                // sanitize
+                $this->paymentOptionsName=htmlspecialchars(strip_tags($value));
+                // bind values
+                $insertStmt->bindParam(":paymentOptionsName", $this->paymentOptionsName);
+                $insertStmt->execute();
+        }
+        // End of Payment insert Code...
+
         // Products Insert Code...
         foreach ($this->productsName as $value) {
             $insertQuery = "INSERT INTO
@@ -1005,6 +1031,10 @@ function update(){
         $Stmt = $this->conn->prepare($deleteBrands);
         $Stmt->execute();
 
+        $deletePaymentOptions = "DELETE FROM paymentoptions WHERE locationId = $this->id";
+        $Stmt = $this->conn->prepare($deletePaymentOptions);
+        $Stmt->execute();
+
         $deleteProducts = "DELETE FROM products WHERE locationId = $this->id";
         $productStmt = $this->conn->prepare($deleteProducts);
         $productStmt->execute();
@@ -1277,6 +1307,24 @@ function update(){
                 $insertStmt->execute();
         }
         // End of Brands insert Code...
+
+        // Payment Insert Code...
+        foreach ($this->paymentOptionsName as $value) {
+            $insertQuery = "INSERT INTO
+                " . $this->paymentOption_table . "
+            SET
+                locationId= $this->id,
+                paymentOptionsName=:paymentOptionsName";
+
+                // prepare query
+                $insertStmt = $this->conn->prepare($insertQuery);
+                // sanitize
+                $this->paymentOptionsName=htmlspecialchars(strip_tags($value));
+                // bind values
+                $insertStmt->bindParam(":paymentOptionsName", $this->paymentOptionsName);
+                $insertStmt->execute();
+        }
+        // End of Payment insert Code...
 
         // Products Insert Code...
         foreach ($this->productsName as $value) {
@@ -1587,6 +1635,10 @@ function reviewsAvg($locationId){
             $deleteBrands = "DELETE FROM brands WHERE locationId = $this->id";
             $brandStmt = $this->conn->prepare($deleteBrands);
             $brandStmt->execute();
+
+            $deletePaymentOptions = "DELETE FROM paymentoptions WHERE locationId = $this->id";
+            $Stmt = $this->conn->prepare($deletePaymentOptions);
+            $Stmt->execute();
 
             $deleteProducts = "DELETE FROM products WHERE locationId = $this->id";
             $productStmt = $this->conn->prepare($deleteProducts);

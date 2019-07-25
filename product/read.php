@@ -168,6 +168,17 @@ if($num>0){
             }
         }
 
+        // Payments
+        $paymentStmt = $product->readPaymentOptions($locationId);
+        $paymentCount = $paymentStmt->rowCount();
+        $payment_arr=array();
+        if ($paymentCount > 0) {
+            while ($paymentRow = $paymentStmt->fetch(PDO::FETCH_ASSOC)){
+                extract($paymentRow);
+                $payment_arr[] = $paymentOptionsName;
+            }
+        }
+
         // products
         $productStmt = $product->readProducts($locationId);
         $productCount = $productStmt->rowCount();
@@ -390,7 +401,7 @@ if($num>0){
                 "message" => $specialOfferMessage,
                 "url" => $specialOfferUrl,
             ),
-            // "paymentOptions" => array($paymentOptions),
+            "paymentOptions" => $payment_arr,
             "urls" => $url_arr,
             "rating" => $avgRating,
             "total_reviews" => $reviewsCount,

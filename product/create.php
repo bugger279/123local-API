@@ -103,6 +103,7 @@ if(
     $product->closed = $data->closed;
     $product->specialitiesName = $data->specialities;
     $product->brandsName = $data->brands;
+    $product->paymentOptionsName = $data->paymentOptions;
     $product->productsName = $data->products;
     $product->servicesName = $data->services;
 

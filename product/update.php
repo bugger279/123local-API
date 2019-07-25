@@ -63,6 +63,7 @@ $product->videos = $data->videos;
 $product->specialOfferMessage = $data->specialOffer->message;
 $product->specialOfferUrl = $data->specialOffer->url;
 // $product->paymentOptions = $data->paymentOptions;
+$product->paymentOptionsName = $data->paymentOptions;
 $product->urls = $data->urls;
 $product->twitterHandle = $data->twitterHandle;
 $product->facebookPageUrl = $data->facebookPageUrl;
