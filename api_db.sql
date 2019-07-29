@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2019 at 09:29 AM
+-- Generation Time: Jul 29, 2019 at 03:42 PM
 -- Server version: 10.1.40-MariaDB
 -- PHP Version: 7.1.29
 
@@ -63,6 +63,60 @@ CREATE TABLE `associations` (
 INSERT INTO `associations` (`associationsId`, `locationId`, `associationsName`) VALUES
 (8, 1, 'Association One'),
 (9, 2, 'Association One');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bio_items`
+--
+
+CREATE TABLE `bio_items` (
+  `bioItemsId` int(10) NOT NULL,
+  `sectionId` int(10) NOT NULL,
+  `bioItemsName` int(100) DEFAULT NULL,
+  `bioItemsTitle` varchar(100) DEFAULT NULL,
+  `bioItemsDescription` text,
+  `bioItemsUrl` text,
+  `bioItemsPhotoUrl` text,
+  `bioItemsPhotoHeight` int(100) NOT NULL DEFAULT '0',
+  `bioItemsPhotoWidth` int(100) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bio_items_certification`
+--
+
+CREATE TABLE `bio_items_certification` (
+  `bioItemsCertificationId` int(10) NOT NULL,
+  `bioItemsId` int(10) NOT NULL,
+  `bioItemsCertificationName` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bio_items_education`
+--
+
+CREATE TABLE `bio_items_education` (
+  `bioItemsEducationId` int(10) NOT NULL,
+  `bioItemsId` int(10) NOT NULL,
+  `bioItemsEducationName` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bio_items_service`
+--
+
+CREATE TABLE `bio_items_service` (
+  `bioItemsServiceId` int(10) NOT NULL,
+  `bioItemsId` int(10) NOT NULL,
+  `bioItemsServiceName` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -165,6 +219,38 @@ INSERT INTO `emails` (`emailsId`, `locationId`, `emailsAddress`, `emailsDescript
 (2, 1, 'info@bbq.com', 'Customer Service'),
 (3, 2, 'uncleskitchen2336@gmail.com', 'Owner\'s email'),
 (4, 2, 'info@bbq.com', 'Customer Service');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `events_items`
+--
+
+CREATE TABLE `events_items` (
+  `eventsItemsId` int(10) NOT NULL,
+  `sectionId` int(10) NOT NULL,
+  `eventsItemsName` varchar(100) DEFAULT NULL,
+  `eventsItemsType` varchar(200) DEFAULT NULL,
+  `eventItemsStarts` varchar(20) DEFAULT NULL,
+  `eventItemsEnds` varchar(20) DEFAULT NULL,
+  `eventItemsDescription` text,
+  `eventItemsVideo` text NOT NULL,
+  `eventItemsUrl` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `events_items_photos`
+--
+
+CREATE TABLE `events_items_photos` (
+  `eventsItemsPhotosId` int(10) NOT NULL,
+  `eventsItemsId` int(10) NOT NULL,
+  `eventsItemsPhotoUrl` text,
+  `eventsItemsPhotoHeight` int(100) NOT NULL DEFAULT '0',
+  `eventsItemsPhotoWidth` int(100) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -279,8 +365,8 @@ CREATE TABLE `lists` (
 --
 
 INSERT INTO `lists` (`listsId`, `locationId`, `listsName`, `listsDescription`, `listsType`) VALUES
-(1, 1, 'Services We Offer', 'Products and Services', 'PRODUCTS'),
-(2, 1, 'See My Products', 'Products and Services', 'PRODUCTS'),
+(1, 1, 'Services We Offer', 'Products and Services', 'MENU'),
+(2, 1, 'See My Products', 'Products and Services', 'MENU'),
 (3, 2, 'Services We Offer', 'Products and Services', 'PRODUCTS'),
 (4, 2, 'See My Products', 'Products and Services', 'PRODUCTS');
 
@@ -330,6 +416,79 @@ CREATE TABLE `locations` (
 INSERT INTO `locations` (`locationId`, `yextID`, `status`, `name`, `address`, `visible`, `address2`, `city`, `displayAddress`, `countryCode`, `postalCode`, `state`, `description`, `displayLatitude`, `displayLongitude`, `routableLatitude`, `routableLongitude`, `hoursDisplayText`, `specialOfferMessage`, `specialOfferUrl`, `paymentOptions`, `twitterHandle`, `facebookPageUrl`, `attributionImageWidth`, `attributionImageDescription`, `attributionImageUrl`, `attributionImageHeight`, `attributionUrl`, `closed`, `yearEstablished`) VALUES
 (1, 123456, 'ACTIVE', 'Kit\'s Kitchen', '2336 Gramercy', 'true', 'Second Floor', 'Houston', 'Near the astrodome', 'US', '77030', 'TX', 'Come on in and check out our newest additions!', '29.70468', '-95.41429', '29.70468', '-95.41429', 'M-Sa 9am-10pm, Su Closed', 'Sign up to receive our deals!', 'https://kits-kitchen.movylo.com/index.php?pag=get_deals&s=yext', 'American Express, Cash, Check, Traveler\'s Check, Visa', 'KitsKitchenTX', 'https://www.facebook.com/thebestbarbecueintexasthatanyoneiknowoflikestoeat/', 143, 'Yext PowerListings', 'http://www.yextstatic.com/cms/pl-synced/pl-synced.png', 20, 'http://www.yext.com/', 'false', 1992),
 (2, 123456, 'ACTIVE', 'Kit\'s Kitchen', '2336 Gramercy', 'true', 'Second Floor', 'Houston', 'Near the astrodome', 'US', '77030', 'TX', 'Come on in and check out our newest additions!', '29.70468', '-95.41429', '29.70468', '-95.41429', 'M-Sa 9am-10pm, Su Closed', 'Sign up to receive our deals!', 'https://kits-kitchen.movylo.com/index.php?pag=get_deals&s=yext', 'American Express, Cash, Check, Traveler\'s Check, Visa', 'KitsKitchenTX', 'https://www.facebook.com/thebestbarbecueintexasthatanyoneiknowoflikestoeat/', 143, 'Yext PowerListings', 'http://www.yextstatic.com/cms/pl-synced/pl-synced.png', 20, 'http://www.yext.com/', 'false', 1992);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu_items`
+--
+
+CREATE TABLE `menu_items` (
+  `menuItemsId` int(11) NOT NULL,
+  `sectionId` int(11) NOT NULL,
+  `menuItemsName` varchar(100) DEFAULT NULL,
+  `menuItemsDescription` text,
+  `menuItemsPhotoUrl` text,
+  `menuItemsPhotoHeight` int(10) NOT NULL DEFAULT '0',
+  `menuItemsPhotoWidth` int(10) NOT NULL DEFAULT '0',
+  `menuItemsCaloriesType` varchar(50) DEFAULT NULL,
+  `menuItemsCalories` int(10) NOT NULL DEFAULT '0',
+  `menuItemsRangeTo` int(10) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `menu_items`
+--
+
+INSERT INTO `menu_items` (`menuItemsId`, `sectionId`, `menuItemsName`, `menuItemsDescription`, `menuItemsPhotoUrl`, `menuItemsPhotoHeight`, `menuItemsPhotoWidth`, `menuItemsCaloriesType`, `menuItemsCalories`, `menuItemsRangeTo`) VALUES
+(1, 1, 'Chocolate Croissant', 'A tantalizing treat', 'http://www.yext-static.com/cms/chocolate-croissant.jpg', 250, 250, 'RANGE', 300, 350),
+(4, 1, 'Chocolate Croissant', 'A tantalizing treatsss', 'http://www.yext-static.com/cms/chocolate-croissant.jpg', 250, 250, 'RANGE', 300, 350);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu_items_cost`
+--
+
+CREATE TABLE `menu_items_cost` (
+  `menuItemsCostId` int(10) NOT NULL,
+  `menuItemsId` int(10) NOT NULL,
+  `menuItemsCostType` varchar(50) DEFAULT NULL,
+  `menuItemsCostPrice` varchar(50) DEFAULT NULL,
+  `menuItemsCostUnit` varchar(50) DEFAULT NULL,
+  `menuItemsCostRangeTo` varchar(50) DEFAULT NULL,
+  `menuItemsCostOther` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `menu_items_cost`
+--
+
+INSERT INTO `menu_items_cost` (`menuItemsCostId`, `menuItemsId`, `menuItemsCostType`, `menuItemsCostPrice`, `menuItemsCostUnit`, `menuItemsCostRangeTo`, `menuItemsCostOther`) VALUES
+(1, 1, 'RANGE', '9.50', 'Per Sandwich', NULL, NULL),
+(2, 1, 'RANGE', '9.50', 'Per Sandwich', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `menu_items_cost_options`
+--
+
+CREATE TABLE `menu_items_cost_options` (
+  `menuItemsCostOptionsId` int(10) NOT NULL,
+  `menuItemsCostId` int(10) NOT NULL,
+  `costOptionName` varchar(100) DEFAULT NULL,
+  `costOptionPrice` varchar(10) DEFAULT NULL,
+  `costOptionCalorie` int(10) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `menu_items_cost_options`
+--
+
+INSERT INTO `menu_items_cost_options` (`menuItemsCostOptionsId`, `menuItemsCostId`, `costOptionName`, `costOptionPrice`, `costOptionCalorie`) VALUES
+(1, 1, 'Bacon', '1.00', 150),
+(2, 1, 'Avocado', '2.00', 30);
 
 -- --------------------------------------------------------
 
@@ -498,6 +657,27 @@ INSERT INTO `saturday` (`saturdayId`, `locationId`, `starts`, `ends`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sections`
+--
+
+CREATE TABLE `sections` (
+  `sectionId` int(10) NOT NULL,
+  `listsId` int(10) NOT NULL,
+  `sectionName` varchar(50) NOT NULL,
+  `sectionDescription` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sections`
+--
+
+INSERT INTO `sections` (`sectionId`, `listsId`, `sectionName`, `sectionDescription`) VALUES
+(1, 1, 'Entree', 'Made fresh daily Entree.'),
+(2, 2, 'Dessert', 'Made fresh daily Desserts.');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `services`
 --
 
@@ -516,6 +696,50 @@ INSERT INTO `services` (`servicesId`, `locationId`, `servicesName`) VALUES
 (4, 1, 'Fully customised Wesbite'),
 (5, 2, 'Fully Opimized Wesbite'),
 (6, 2, 'Fully customised Wesbite');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service_items`
+--
+
+CREATE TABLE `service_items` (
+  `serviceItemsId` int(10) NOT NULL,
+  `sectionId` int(10) NOT NULL,
+  `serviceItemsDescription` text NOT NULL,
+  `serviceItemsVideoUrl` text NOT NULL,
+  `serviceItemsUrl` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service_items_cost`
+--
+
+CREATE TABLE `service_items_cost` (
+  `serviceItemsCostId` int(10) NOT NULL,
+  `serviceItemsId` int(10) NOT NULL,
+  `serviceItemsCostType` varchar(50) NOT NULL,
+  `serviceItemsCostPrice` varchar(50) NOT NULL,
+  `serviceItemsCostUnit` varchar(50) NOT NULL,
+  `serviceItemsCostRangeTo` varchar(50) NOT NULL,
+  `serviceItemsCostOther` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `service_items_cost_options`
+--
+
+CREATE TABLE `service_items_cost_options` (
+  `serviceItemsCostOptionsId` int(10) NOT NULL,
+  `serviceItemsCostId` int(10) NOT NULL,
+  `costOptionName` varchar(100) DEFAULT NULL,
+  `costOptionPrice` varchar(10) DEFAULT NULL,
+  `costOptionCalorie` int(10) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -683,6 +907,30 @@ ALTER TABLE `associations`
   ADD PRIMARY KEY (`associationsId`);
 
 --
+-- Indexes for table `bio_items`
+--
+ALTER TABLE `bio_items`
+  ADD PRIMARY KEY (`bioItemsId`);
+
+--
+-- Indexes for table `bio_items_certification`
+--
+ALTER TABLE `bio_items_certification`
+  ADD PRIMARY KEY (`bioItemsCertificationId`);
+
+--
+-- Indexes for table `bio_items_education`
+--
+ALTER TABLE `bio_items_education`
+  ADD PRIMARY KEY (`bioItemsEducationId`);
+
+--
+-- Indexes for table `bio_items_service`
+--
+ALTER TABLE `bio_items_service`
+  ADD PRIMARY KEY (`bioItemsServiceId`);
+
+--
 -- Indexes for table `brands`
 --
 ALTER TABLE `brands`
@@ -705,6 +953,18 @@ ALTER TABLE `comments`
 --
 ALTER TABLE `emails`
   ADD PRIMARY KEY (`emailsId`);
+
+--
+-- Indexes for table `events_items`
+--
+ALTER TABLE `events_items`
+  ADD PRIMARY KEY (`eventsItemsId`);
+
+--
+-- Indexes for table `events_items_photos`
+--
+ALTER TABLE `events_items_photos`
+  ADD PRIMARY KEY (`eventsItemsPhotosId`);
 
 --
 -- Indexes for table `friday`
@@ -743,6 +1003,24 @@ ALTER TABLE `locations`
   ADD PRIMARY KEY (`locationId`);
 
 --
+-- Indexes for table `menu_items`
+--
+ALTER TABLE `menu_items`
+  ADD PRIMARY KEY (`menuItemsId`);
+
+--
+-- Indexes for table `menu_items_cost`
+--
+ALTER TABLE `menu_items_cost`
+  ADD PRIMARY KEY (`menuItemsCostId`);
+
+--
+-- Indexes for table `menu_items_cost_options`
+--
+ALTER TABLE `menu_items_cost_options`
+  ADD PRIMARY KEY (`menuItemsCostOptionsId`);
+
+--
 -- Indexes for table `monday`
 --
 ALTER TABLE `monday`
@@ -779,10 +1057,34 @@ ALTER TABLE `saturday`
   ADD PRIMARY KEY (`saturdayId`);
 
 --
+-- Indexes for table `sections`
+--
+ALTER TABLE `sections`
+  ADD PRIMARY KEY (`sectionId`);
+
+--
 -- Indexes for table `services`
 --
 ALTER TABLE `services`
   ADD PRIMARY KEY (`servicesId`);
+
+--
+-- Indexes for table `service_items`
+--
+ALTER TABLE `service_items`
+  ADD PRIMARY KEY (`serviceItemsId`);
+
+--
+-- Indexes for table `service_items_cost`
+--
+ALTER TABLE `service_items_cost`
+  ADD PRIMARY KEY (`serviceItemsCostId`);
+
+--
+-- Indexes for table `service_items_cost_options`
+--
+ALTER TABLE `service_items_cost_options`
+  ADD PRIMARY KEY (`serviceItemsCostOptionsId`);
 
 --
 -- Indexes for table `specialities`
@@ -840,19 +1142,43 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `associations`
 --
 ALTER TABLE `associations`
-  MODIFY `associationsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `associationsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `bio_items`
+--
+ALTER TABLE `bio_items`
+  MODIFY `bioItemsId` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bio_items_certification`
+--
+ALTER TABLE `bio_items_certification`
+  MODIFY `bioItemsCertificationId` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bio_items_education`
+--
+ALTER TABLE `bio_items_education`
+  MODIFY `bioItemsEducationId` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `bio_items_service`
+--
+ALTER TABLE `bio_items_service`
+  MODIFY `bioItemsServiceId` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `brandsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `brandsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `categoriesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `categoriesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -864,49 +1190,79 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT for table `emails`
 --
 ALTER TABLE `emails`
-  MODIFY `emailsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `emailsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `events_items`
+--
+ALTER TABLE `events_items`
+  MODIFY `eventsItemsId` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `events_items_photos`
+--
+ALTER TABLE `events_items_photos`
+  MODIFY `eventsItemsPhotosId` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `friday`
 --
 ALTER TABLE `friday`
-  MODIFY `fridayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `fridayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `images`
 --
 ALTER TABLE `images`
-  MODIFY `imagesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `imagesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `keywords`
 --
 ALTER TABLE `keywords`
-  MODIFY `keywordsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
+  MODIFY `keywordsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `languages`
 --
 ALTER TABLE `languages`
-  MODIFY `languagesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `languagesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `lists`
 --
 ALTER TABLE `lists`
-  MODIFY `listsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `listsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `locationId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `locationId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `menu_items`
+--
+ALTER TABLE `menu_items`
+  MODIFY `menuItemsId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `menu_items_cost`
+--
+ALTER TABLE `menu_items_cost`
+  MODIFY `menuItemsCostId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `menu_items_cost_options`
+--
+ALTER TABLE `menu_items_cost_options`
+  MODIFY `menuItemsCostOptionsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `monday`
 --
 ALTER TABLE `monday`
-  MODIFY `mondayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `mondayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `paymentoptions`
@@ -918,13 +1274,13 @@ ALTER TABLE `paymentoptions`
 -- AUTO_INCREMENT for table `phones`
 --
 ALTER TABLE `phones`
-  MODIFY `phoneId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=133;
+  MODIFY `phoneId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `productsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `productsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -936,19 +1292,43 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `saturday`
 --
 ALTER TABLE `saturday`
-  MODIFY `saturdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `saturdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `sections`
+--
+ALTER TABLE `sections`
+  MODIFY `sectionId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `services`
 --
 ALTER TABLE `services`
-  MODIFY `servicesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `servicesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `service_items`
+--
+ALTER TABLE `service_items`
+  MODIFY `serviceItemsId` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `service_items_cost`
+--
+ALTER TABLE `service_items_cost`
+  MODIFY `serviceItemsCostId` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `service_items_cost_options`
+--
+ALTER TABLE `service_items_cost_options`
+  MODIFY `serviceItemsCostOptionsId` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `specialities`
 --
 ALTER TABLE `specialities`
-  MODIFY `specialitiesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=228;
+  MODIFY `specialitiesId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sunday`
@@ -960,31 +1340,31 @@ ALTER TABLE `sunday`
 -- AUTO_INCREMENT for table `thursday`
 --
 ALTER TABLE `thursday`
-  MODIFY `thursdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `thursdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tuesday`
 --
 ALTER TABLE `tuesday`
-  MODIFY `tuesdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `tuesdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `urls`
 --
 ALTER TABLE `urls`
-  MODIFY `urlsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `urlsId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `videos`
 --
 ALTER TABLE `videos`
-  MODIFY `videosId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `videosId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `wednesday`
 --
 ALTER TABLE `wednesday`
-  MODIFY `wednesdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `wednesdayId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
