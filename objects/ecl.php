@@ -17,6 +17,7 @@ class Ecl{
     private $serviceItems_table = "service_items";
     private $serviceItemsCost_table = "service_items_cost";
     private $serviceItemsCostOptions_table = "service_items_cost_options";
+    private $serviceItemsPhotos_table = "service_items_photos";
 
     private $eventsItems_table = "events_items";
     private $eventsItemsPhotos_table = "events_items_photos";
@@ -42,27 +43,98 @@ class Ecl{
         $stmt->execute();
         return $stmt;
     }
-
-    function fetchItemsOfSection($sectionId) {
+    // For Menu Items
+    function fetchMenuItemsOfSection($sectionId) {
         $query = "SELECT * FROM " . $this->menuItems_table . " r WHERE r.sectionId = $sectionId";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
 
-    function fetchCostsOfItems($menuItemsId) {
+    function fetchCostsOfMenuItems($menuItemsId) {
         $query = "SELECT * FROM " . $this->menuItemsCost_table . " r WHERE r.menuItemsId = $menuItemsId";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
 
-    function fetchOptionsOfCosts($menuItemsCostId) {
+    function fetchMenuOptionsOfCosts($menuItemsCostId) {
         $query = "SELECT * FROM " . $this->menuItemsCostOptions_table . " r WHERE r.menuItemsCostId = $menuItemsCostId";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
     }
+    // For Bio Items
+    function fetchBioItemsOfSection($sectionId) {
+        $query = "SELECT * FROM " . $this->bioItems_table . " r WHERE r.sectionId = $sectionId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function fetchCertificationsOfBioItems($bioItemsId) {
+        $query = "SELECT * FROM " . $this->bioItemsCertification_table . " r WHERE r.bioItemsId = $bioItemsId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function fetchEducationsOfBioItems($bioItemsId) {
+        $query = "SELECT * FROM " . $this->bioItemsEducation_table . " r WHERE r.bioItemsId = $bioItemsId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function fetchServicesOfBioItems($bioItemsId) {
+        $query = "SELECT * FROM " . $this->bioItemsService_table . " r WHERE r.bioItemsId = $bioItemsId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+    // For Products Items
+    function fetchProductItemsOfSection($sectionId) {
+        $query = "SELECT * FROM " . $this->serviceItems_table . " r WHERE r.sectionId = $sectionId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function fetchCostsOfProductItems($serviceItemsId) {
+        $query = "SELECT * FROM " . $this->serviceItemsCost_table . " r WHERE r.serviceItemsId = $serviceItemsId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function fetchProductOptionsOfCosts($serviceItemsCostId) {
+        $query = "SELECT * FROM " . $this->serviceItemsCostOptions_table . " r WHERE r.serviceItemsCostId = $serviceItemsCostId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function fetchPhotosOfProductItems($serviceItemsId) {
+        $query = "SELECT * FROM " . $this->serviceItemsPhotos_table . " r WHERE r.serviceItemsId = $serviceItemsId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+    // For Events Items
+    function fetchEventsItemsOfSection($sectionId) {
+        $query = "SELECT * FROM " . $this->eventsItems_table . " r WHERE r.sectionId = $sectionId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    function fetchPhotosOfEventsItems($serviceItemsId) {
+        $query = "SELECT * FROM " . $this->eventsItemsPhotos_table . " r WHERE r.serviceItemsId = $serviceItemsId";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
     // END OF lists
 
     //  CREATE A NEW REVIEW 
