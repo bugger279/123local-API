@@ -129,7 +129,7 @@ class Ecl{
     }
 
     function fetchPhotosOfEventsItems($serviceItemsId) {
-        $query = "SELECT * FROM " . $this->eventsItemsPhotos_table . " r WHERE r.serviceItemsId = $serviceItemsId";
+        $query = "SELECT * FROM " . $this->eventsItemsPhotos_table . " r WHERE r.eventsItemsId = $serviceItemsId";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt;
@@ -139,7 +139,8 @@ class Ecl{
 
     //  CREATE A NEW REVIEW 
     function createSection(){
-        $date = date('Y-m-d H:i:s');
+        $listsType = $this->listsType;
+
         $query = "INSERT INTO
                     " . $this->section_table . "
                 SET
@@ -157,12 +158,279 @@ class Ecl{
         $stmt->bindParam(":sectionDescription", $this->sectionDescription);
 
         if($stmt->execute()){
-            $lastId = $this->conn->lastInsertId();
-            http_response_code(201);
-            echo json_encode(array(
-                "message" => "ECL Created Successfully!",
-                "sectionId" => $lastId
-            ));
+            $sectionId = $this->conn->lastInsertId();            
+            // MENU TYPE
+            if ($listsType === "MENUS" || $listsType === "MENUS") {
+                // Inserting data in Menuitems table
+                foreach ($this->items as $item) {
+                    $insertQuery = "INSERT INTO
+                        " . $this->menuItems_table . "
+                    SET
+                        sectionId= $sectionId,
+                        menuItemsName=:menuItemsName,
+                        menuItemsDescription=:menuItemsDescription,
+                        menuItemsPhotoUrl=:menuItemsPhotoUrl,
+                        menuItemsPhotoHeight=:menuItemsPhotoHeight,
+                        menuItemsPhotoWidth=:menuItemsPhotoWidth,
+                        menuItemsCaloriesType=:menuItemsCaloriesType,
+                        menuItemsCalories=:menuItemsCalories,
+                        menuItemsRangeTo=:menuItemsRangeTo";
+
+                        // prepare query
+                        $insertStmt = $this->conn->prepare($insertQuery);
+                        // sanitize
+                        $menuItemsName=htmlspecialchars(strip_tags($item->name));
+                        $menuItemsDescription=htmlspecialchars(strip_tags($item->description));
+                        $menuItemsPhotoUrl=htmlspecialchars(strip_tags($item->photo->url));
+                        $menuItemsPhotoHeight=htmlspecialchars(strip_tags($item->photo->height));
+                        $menuItemsPhotoWidth=htmlspecialchars(strip_tags($item->photo->width));
+                        $menuItemsCaloriesType=htmlspecialchars(strip_tags($item->calories->type));
+                        $menuItemsCalories=htmlspecialchars(strip_tags($item->calories->calorie));
+                        $menuItemsRangeTo=htmlspecialchars(strip_tags($item->calories->rangeTo));
+                        // bind values
+                        $insertStmt->bindParam(":menuItemsName", $menuItemsName);
+                        $insertStmt->bindParam(":menuItemsDescription", $menuItemsDescription);
+                        $insertStmt->bindParam(":menuItemsPhotoUrl", $menuItemsPhotoUrl);
+                        $insertStmt->bindParam(":menuItemsPhotoHeight", $menuItemsPhotoHeight);
+                        $insertStmt->bindParam(":menuItemsPhotoWidth", $menuItemsPhotoWidth);
+                        $insertStmt->bindParam(":menuItemsCaloriesType", $menuItemsCaloriesType);
+                        $insertStmt->bindParam(":menuItemsCalories", $menuItemsCalories);
+                        $insertStmt->bindParam(":menuItemsRangeTo", $menuItemsRangeTo);
+                        if($insertStmt->execute()){
+                            $menuItemId = $this->conn->lastInsertId();
+
+                            foreach ($item->costs as $cost) {
+                                $insertQuery = "INSERT INTO
+                                    " . $this->menuItemsCost_table . "
+                                SET
+                                    menuItemsId= $menuItemId,
+                                    menuItemsCostType=:menuItemsCostType,
+                                    menuItemsCostPrice=:menuItemsCostPrice,
+                                    menuItemsCostUnit=:menuItemsCostUnit,
+                                    menuItemsCostRangeTo=:menuItemsCostRangeTo,
+                                    menuItemsCostOther=:menuItemsCostOther";
+
+                            // prepare query
+                            $insertStmt = $this->conn->prepare($insertQuery);
+                            // sanitize
+                            $menuItemsCostType=htmlspecialchars(strip_tags($cost->type));
+                            $menuItemsCostPrice=htmlspecialchars(strip_tags($cost->price));
+                            $menuItemsCostUnit=htmlspecialchars(strip_tags($cost->unit));
+                            $menuItemsCostRangeTo=htmlspecialchars(strip_tags($cost->rangeTo));
+                            $menuItemsCostOther=htmlspecialchars(strip_tags($cost->other));
+                            // bind values
+                            $insertStmt->bindParam(":menuItemsCostType", $menuItemsCostType);
+                            $insertStmt->bindParam(":menuItemsCostPrice", $menuItemsCostPrice);
+                            $insertStmt->bindParam(":menuItemsCostUnit", $menuItemsCostUnit);
+                            $insertStmt->bindParam(":menuItemsCostRangeTo", $menuItemsCostRangeTo);
+                            $insertStmt->bindParam(":menuItemsCostOther", $menuItemsCostOther);
+
+                                if($insertStmt->execute()){
+                                    $menuItemsCostId = $this->conn->lastInsertId();
+
+                                    foreach ($cost->options as $option) {
+                                        $insertQuery = "INSERT INTO
+                                            " . $this->menuItemsCostOptions_table . "
+                                        SET
+                                            menuItemsCostId= $menuItemsCostId,
+                                            costOptionName=:costOptionName,
+                                            costOptionPrice=:costOptionPrice,
+                                            costOptionCalorie=:costOptionCalorie";
+
+                                        // prepare query
+                                        $insertStmt = $this->conn->prepare($insertQuery);
+                                        // sanitize
+                                        $costOptionName=htmlspecialchars(strip_tags($option->name));
+                                        $costOptionPrice=htmlspecialchars(strip_tags($option->price));
+                                        $costOptionCalorie=htmlspecialchars(strip_tags($option->calorie));
+                                        // bind values
+                                        $insertStmt->bindParam(":costOptionName", $costOptionName);
+                                        $insertStmt->bindParam(":costOptionPrice", $costOptionPrice);
+                                        $insertStmt->bindParam(":costOptionCalorie", $costOptionCalorie);
+                                        $insertStmt->execute();
+                                    }
+                                }
+                            }
+                        }
+                    }
+                // End of insert MenuItems Code...
+            }
+            // End of insert ProductItems Code...
+            // PRODUCT TYPE
+            if ($listsType === "PRODUCTS" || $listsType === "PRODUCT") {
+                // Inserting data in Menuitems table
+                foreach ($this->items as $item) {
+                    $insertQuery = "INSERT INTO
+                        " . $this->serviceItems_table . "
+                    SET
+                        sectionId= $sectionId,
+                        serviceItemsName=:serviceItemsName,
+                        serviceItemsDescription=:serviceItemsDescription,
+                        serviceItemsVideoUrl=:serviceItemsVideoUrl,
+                        serviceItemsUrl=:serviceItemsUrl";
+
+                        // prepare query
+                        $insertStmt = $this->conn->prepare($insertQuery);
+                        // sanitize
+                        $serviceItemsName=htmlspecialchars(strip_tags($item->name));
+                        $serviceItemsDescription=htmlspecialchars(strip_tags($item->description));
+                        $serviceItemsVideoUrl=htmlspecialchars(strip_tags($item->video));
+                        $serviceItemsUrl=htmlspecialchars(strip_tags($item->url));
+                        // bind values
+                        $insertStmt->bindParam(":serviceItemsName", $serviceItemsName);
+                        $insertStmt->bindParam(":serviceItemsDescription", $serviceItemsDescription);
+                        $insertStmt->bindParam(":serviceItemsVideoUrl", $serviceItemsVideoUrl);
+                        $insertStmt->bindParam(":serviceItemsUrl", $serviceItemsUrl);
+                        if($insertStmt->execute()){
+                            $serviceItemsId = $this->conn->lastInsertId();
+
+                            foreach ($item->photos as $photo) {
+                                $insertPhotosQuery = "INSERT INTO
+                                    " . $this->serviceItemsPhotos_table . "
+                                SET
+                                    serviceItemsId= $serviceItemsId,
+                                    serviceItemsPhotoUrl=:serviceItemsPhotoUrl,
+                                    serviceItemsPhotoHeight=:serviceItemsPhotoHeight,
+                                    serviceItemsPhotoWidth=:serviceItemsPhotoWidth";
+
+                            // prepare query
+                            $insertPhotoStmt = $this->conn->prepare($insertPhotosQuery);
+                            // sanitize
+                            $serviceItemsPhotoUrl=htmlspecialchars(strip_tags($photo->url));
+                            $serviceItemsPhotoHeight=htmlspecialchars(strip_tags($photo->height));
+                            $serviceItemsPhotoWidth=htmlspecialchars(strip_tags($photo->width));
+                            // bind values
+                            $insertPhotoStmt->bindParam(":serviceItemsPhotoUrl", $serviceItemsPhotoUrl);
+                            $insertPhotoStmt->bindParam(":serviceItemsPhotoHeight", $serviceItemsPhotoHeight);
+                            $insertPhotoStmt->bindParam(":serviceItemsPhotoWidth", $serviceItemsPhotoWidth);
+                            $insertPhotoStmt->execute();
+                            }
+
+                            foreach ($item->costs as $cost) {
+                                $insertQuery = "INSERT INTO
+                                    " . $this->serviceItemsCost_table . "
+                                SET
+                                    serviceItemsId= $serviceItemsId,
+                                    serviceItemsCostType=:serviceItemsCostType,
+                                    serviceItemsCostPrice=:serviceItemsCostPrice,
+                                    serviceItemsCostUnit=:serviceItemsCostUnit,
+                                    serviceItemsCostRangeTo=:serviceItemsCostRangeTo,
+                                    serviceItemsCostOther=:serviceItemsCostOther";
+
+                            // prepare query
+                            $insertStmt = $this->conn->prepare($insertQuery);
+                            // sanitize
+                            $serviceItemsCostType=htmlspecialchars(strip_tags($cost->type));
+                            $serviceItemsCostPrice=htmlspecialchars(strip_tags($cost->price));
+                            $serviceItemsCostUnit=htmlspecialchars(strip_tags($cost->unit));
+                            $serviceItemsCostRangeTo=htmlspecialchars(strip_tags($cost->rangeTo));
+                            $serviceItemsCostOther=htmlspecialchars(strip_tags($cost->other));
+                            // bind values
+                            $insertStmt->bindParam(":serviceItemsCostType", $serviceItemsCostType);
+                            $insertStmt->bindParam(":serviceItemsCostPrice", $serviceItemsCostPrice);
+                            $insertStmt->bindParam(":serviceItemsCostUnit", $serviceItemsCostUnit);
+                            $insertStmt->bindParam(":serviceItemsCostRangeTo", $serviceItemsCostRangeTo);
+                            $insertStmt->bindParam(":serviceItemsCostOther", $serviceItemsCostOther);
+
+                                if($insertStmt->execute()){
+                                    $serviceItemsCostId = $this->conn->lastInsertId();
+
+                                    foreach ($cost->options as $option) {
+                                        $insertQuery = "INSERT INTO
+                                            " . $this->serviceItemsCostOptions_table . "
+                                        SET
+                                            serviceItemsCostId= $serviceItemsCostId,
+                                            costOptionName=:costOptionName,
+                                            costOptionPrice=:costOptionPrice,
+                                            costOptionCalorie=:costOptionCalorie";
+
+                                        // prepare query
+                                        $insertStmt = $this->conn->prepare($insertQuery);
+                                        // sanitize
+                                        $costOptionName=htmlspecialchars(strip_tags($option->name));
+                                        $costOptionPrice=htmlspecialchars(strip_tags($option->price));
+                                        $costOptionCalorie=htmlspecialchars(strip_tags($option->calorie));
+                                        // bind values
+                                        $insertStmt->bindParam(":costOptionName", $costOptionName);
+                                        $insertStmt->bindParam(":costOptionPrice", $costOptionPrice);
+                                        $insertStmt->bindParam(":costOptionCalorie", $costOptionCalorie);
+                                        $insertStmt->execute();
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+            }
+            // End of insert ProductItems Code...
+            // EVENTS TYPE
+            if ($listsType === "EVENTS" || $listsType === "EVENT") {
+                // Inserting data in Menuitems table
+                foreach ($this->items as $item) {
+                    $insertQuery = "INSERT INTO
+                        " . $this->eventsItems_table . "
+                    SET
+                        sectionId= $sectionId,
+                        eventsItemsName=:eventsItemsName,
+                        eventsItemsType=:eventsItemsType,
+                        eventItemsStarts=:eventItemsStarts,
+                        eventItemsEnds=:eventItemsEnds,
+                        eventItemsDescription=:eventItemsDescription,
+                        eventItemsVideo=:eventItemsVideo,
+                        eventItemsUrl=:eventItemsUrl";
+
+                        // prepare query
+                        $insertStmt = $this->conn->prepare($insertQuery);
+                        // sanitize
+                        $eventsItemsName=htmlspecialchars(strip_tags($item->name));
+                        $eventsItemsType=htmlspecialchars(strip_tags($item->type));
+                        $eventItemsStarts=htmlspecialchars(strip_tags($item->starts));
+                        $eventItemsEnds=htmlspecialchars(strip_tags($item->ends));
+                        $eventItemsDescription=htmlspecialchars(strip_tags($item->description));
+                        $eventItemsVideo=htmlspecialchars(strip_tags($item->video));
+                        $eventItemsUrl=htmlspecialchars(strip_tags($item->url));
+                        // bind values
+                        $insertStmt->bindParam(":eventsItemsName", $eventsItemsName);
+                        $insertStmt->bindParam(":eventsItemsType", $eventsItemsType);
+                        $insertStmt->bindParam(":eventItemsStarts", $eventItemsStarts);
+                        $insertStmt->bindParam(":eventItemsEnds", $eventItemsEnds);
+                        $insertStmt->bindParam(":eventItemsDescription", $eventItemsDescription);
+                        $insertStmt->bindParam(":eventItemsVideo", $eventItemsVideo);
+                        $insertStmt->bindParam(":eventItemsUrl", $eventItemsUrl);
+
+                        if($insertStmt->execute()){
+                            $eventsItemsId = $this->conn->lastInsertId();
+
+                            foreach ($item->photos as $photo) {
+                                $insertPhotosQuery = "INSERT INTO
+                                    " . $this->eventsItemsPhotos_table . "
+                                SET
+                                    eventsItemsId= $eventsItemsId,
+                                    eventsItemsPhotoUrl=:eventsItemsPhotoUrl,
+                                    eventsItemsPhotoHeight=:eventsItemsPhotoHeight,
+                                    eventsItemsPhotoWidth=:eventsItemsPhotoWidth";
+
+                            // prepare query
+                            $insertPhotoStmt = $this->conn->prepare($insertPhotosQuery);
+                            // sanitize
+                            $eventsItemsPhotoUrl=htmlspecialchars(strip_tags($photo->url));
+                            $eventsItemsPhotoHeight=htmlspecialchars(strip_tags($photo->height));
+                            $eventsItemsPhotoWidth=htmlspecialchars(strip_tags($photo->width));
+                            // bind values
+                            $insertPhotoStmt->bindParam(":eventsItemsPhotoUrl", $eventsItemsPhotoUrl);
+                            $insertPhotoStmt->bindParam(":eventsItemsPhotoHeight", $eventsItemsPhotoHeight);
+                            $insertPhotoStmt->bindParam(":eventsItemsPhotoWidth", $eventsItemsPhotoWidth);
+                            $insertPhotoStmt->execute();
+                            }
+                        }
+                    }
+                }
+            // End of insert ProductItems Code...
+        http_response_code(201);
+        echo json_encode(array(
+            "message" => "ECL Created Successfully!",
+            "sectionId" => $sectionId
+        ));
         } else {
             $errors = $stmt->errorInfo();
             print_r($errors);
@@ -176,29 +444,57 @@ class Ecl{
         }
     }
     // END OF CREATE A NEW REVIEW
+
     // DELETE THE EXISTING Review
-    function deleteReview(){
-        $query = "DELETE FROM " . $this->reviews_table . " WHERE reviewId = $this->id";
+    function deleteSection(){
+        $query = "SELECT * FROM " . $this->section_table . " r WHERE r.listsId = $this->listsId";
         $stmt = $this->conn->prepare($query);
-        $this->id=htmlspecialchars(strip_tags($this->id));
-        $stmt->bindParam(":reviewId", $this->id);
-        if($stmt->execute()) {
-            $count = $stmt->rowCount();
+        $stmt->execute();
+        while ($sectionRow = $stmt->fetch(PDO::FETCH_ASSOC)){
+            extract($sectionRow);
+            // print_r($sectionRow);
+            $query = "SELECT * FROM " . $this->menuItems_table . " r WHERE r.sectionId = $sectionId";
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            while ($menuItemRow = $stmt->fetch(PDO::FETCH_ASSOC)){
+                    extract($menuItemRow);
+                    print_r($menuItemRow);
+
+                $query = "SELECT * FROM " . $this->menuItemsCost_table . " r WHERE r.menuItemsId = $menuItemsId";
+                $stmt = $this->conn->prepare($query);
+                $stmt->execute();
+                while ($menuItemCostRow = $stmt->fetch(PDO::FETCH_ASSOC)){
+                    extract($menuItemCostRow);
+                    print_r($menuItemCostRow);
+                }
+            }
         }
+
+        die();
+
+
+        $deleteQuery = "DELETE FROM " . $this->section_table . " WHERE listsId = $this->listsId";
+        $deleteStmt = $this->conn->prepare($deleteQuery);
+        $this->id=htmlspecialchars(strip_tags($this->listsId));
+        $deleteStmt->bindParam(":listsId", $this->listsId);
+
+        if($deleteStmt->execute()) {
+            $count = $deleteStmt->rowCount();
             if ($count > 0) {
-                $deleteComments = "DELETE FROM " . $this->comments_table . " WHERE reviewId = $this->id";
-                $deleteCommentStmt = $this->conn->prepare($deleteComments);
-                if($deleteCommentStmt->execute()) {   
+                $deleteMenuItems = "DELETE FROM " . $this->menuItems_table . " WHERE sectionId = $sectionId";
+                $deleteMenuItemsStmt = $this->conn->prepare($deleteMenuItems);
+                if($deleteMenuItemsStmt->execute()) {   
                     http_response_code(200);
                     echo json_encode(array(
                         "message" => "Review and it's related Comments Deleted Successfully",
                         "id" => $this->id
                     ));
                 }
-            } else {
-                http_response_code(404);
-                echo json_encode(array("issue" => "The requested review does not exist on your site."));
             }
+        } else {
+            http_response_code(404);
+            echo json_encode(array("issue" => "The requested review does not exist on your site."));
+        }
         return false;
     }
     // END OF DELETE THE EXISTING Review

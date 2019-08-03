@@ -36,7 +36,7 @@ if ($eclCount > 0) {
         $section_arr=array();
 
         if ($sectionCount > 0) {
-            if ($listsType === "MENUS") {
+            if ($listsType === "MENUS" || $listsType === "MENU") {
                 // lists Type is MENU ITEM 
                 while ($sectionRow = $sectionStmt->fetch(PDO::FETCH_ASSOC)) {
                     // Extract Sections
@@ -109,12 +109,12 @@ if ($eclCount > 0) {
                     $section_arr[] = [
                         "sectionID" => $sectionId,
                         "listsID" => $listsId,
-                        "sectionName" => $sectionName,
-                        "sectionDescription" => $sectionDescription,
+                        "name" => $sectionName,
+                        "description" => $sectionDescription,
                         "items" => $items_arr
                     ];
                 }
-            } elseif ($listsType === "BIOS") {
+            } elseif ($listsType === "BIOS" || $listsType === "BIO") {
                 // Lists Type id BIO ITEMS
                 while ($sectionRow = $sectionStmt->fetch(PDO::FETCH_ASSOC)) {
                     // Extract Sections
@@ -187,12 +187,13 @@ if ($eclCount > 0) {
                 
                     $section_arr[] = [
                         "sectionID" => $sectionId,
-                        "sectionName" => $sectionName,
-                        "sectionDescription" => $sectionDescription,
+                        "listsID" => $listsId,
+                        "name" => $sectionName,
+                        "description" => $sectionDescription,
                         "items" => $items_arr
                     ];
                 }
-            } elseif ($listsType === "PRODUCTS") {
+            } elseif ($listsType === "PRODUCTS" || $listsType === "PRODUCT") {
                 // Lists Type is PRODUCT ITEMS
                 while ($sectionRow = $sectionStmt->fetch(PDO::FETCH_ASSOC)) {
                     // Extract Sections
@@ -271,12 +272,12 @@ if ($eclCount > 0) {
                     $section_arr[] = [
                         "sectionID" => $sectionId,
                         "listsID" => $listsId,
-                        "sectionName" => $sectionName,
-                        "sectionDescription" => $sectionDescription,
+                        "name" => $sectionName,
+                        "description" => $sectionDescription,
                         "items" => $items_arr
                     ];
                 }
-            } elseif ($listsType === "EVENTS") {
+            } elseif ($listsType === "EVENTS" || $listsType === "EVENT") {
                 // Lists Type is EVENTS ITEMS
                 while ($sectionRow = $sectionStmt->fetch(PDO::FETCH_ASSOC)) {
                     // Extract Sections
@@ -293,7 +294,7 @@ if ($eclCount > 0) {
                             $eventPhotosStmt = $ecl->fetchPhotosOfEventsItems($eventsItemsId);
                             $eventPhotosCount = $eventPhotosStmt->rowCount();
                             $eventPhotos_arr=array();
-
+                            
                             if ($eventPhotosCount > 0) {
                                 while ($eventPhotosRow = $eventPhotosStmt->fetch(PDO::FETCH_ASSOC)){
                                     // Extract Costs
@@ -322,8 +323,9 @@ if ($eclCount > 0) {
                 
                     $section_arr[] = [
                         "sectionID" => $sectionId,
-                        "sectionName" => $sectionName,
-                        "sectionDescription" => $sectionDescription,
+                        "listsID" => $listsId,
+                        "name" => $sectionName,
+                        "description" => $sectionDescription,
                         "items" => $events_arr
                     ];
                 }

@@ -10,7 +10,7 @@ class Database{
     // private $password = "@hs_e&djr}tX9qWB";
 
     private $host = "localhost";
-    private $db_name = "api_db";
+    private $db_name = "new_dbs_yext";
     private $username = "root";
     private $password = "";
     public $conn;

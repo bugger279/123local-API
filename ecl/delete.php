@@ -8,29 +8,29 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // include database and object file
 include_once '../config/database.php';
-include_once '../objects/review.php';
+include_once '../objects/ecl.php';
 
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
 
 // prepare product object
-$review = new Review($db);
+$ecl = new Ecl($db);
 
 // get product id
 $data = json_decode(file_get_contents("php://input"));
-$id=isset($_GET["id"]) ? $_GET["id"] : "";
-$review->id = $id;
+$id=isset($_GET["listsId"]) ? $_GET["listsId"] : "";
+$ecl->listsId = $id;
 
-if (empty($review->id)){
+if (empty($ecl->listsId)){
     http_response_code(400);
     echo json_encode(array("issues" => [
         "description" => "Malformed request sent.",
         "errorCode" => "400",
         "issue" => "No id Provided"
         ]));
-        die();
+    die();
 } else {
-    $review->deleteReview();
+    $ecl->deleteSection();
 }
 ?>
