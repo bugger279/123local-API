@@ -137,7 +137,7 @@ class Ecl{
 
     // END OF lists
 
-    //  CREATE A NEW REVIEW 
+    //  CREATE A NEW Section 
     function createSection(){
         $listsType = $this->listsType;
 
@@ -204,6 +204,7 @@ class Ecl{
                                     " . $this->menuItemsCost_table . "
                                 SET
                                     menuItemsId= $menuItemId,
+                                    sectionId= $sectionId,
                                     menuItemsCostType=:menuItemsCostType,
                                     menuItemsCostPrice=:menuItemsCostPrice,
                                     menuItemsCostUnit=:menuItemsCostUnit,
@@ -233,6 +234,7 @@ class Ecl{
                                             " . $this->menuItemsCostOptions_table . "
                                         SET
                                             menuItemsCostId= $menuItemsCostId,
+                                            sectionId= $sectionId,
                                             costOptionName=:costOptionName,
                                             costOptionPrice=:costOptionPrice,
                                             costOptionCalorie=:costOptionCalorie";
@@ -289,6 +291,7 @@ class Ecl{
                                     " . $this->serviceItemsPhotos_table . "
                                 SET
                                     serviceItemsId= $serviceItemsId,
+                                    sectionId= $sectionId,
                                     serviceItemsPhotoUrl=:serviceItemsPhotoUrl,
                                     serviceItemsPhotoHeight=:serviceItemsPhotoHeight,
                                     serviceItemsPhotoWidth=:serviceItemsPhotoWidth";
@@ -311,6 +314,7 @@ class Ecl{
                                     " . $this->serviceItemsCost_table . "
                                 SET
                                     serviceItemsId= $serviceItemsId,
+                                    sectionId= $sectionId,
                                     serviceItemsCostType=:serviceItemsCostType,
                                     serviceItemsCostPrice=:serviceItemsCostPrice,
                                     serviceItemsCostUnit=:serviceItemsCostUnit,
@@ -340,6 +344,7 @@ class Ecl{
                                             " . $this->serviceItemsCostOptions_table . "
                                         SET
                                             serviceItemsCostId= $serviceItemsCostId,
+                                            sectionId= $sectionId,
                                             costOptionName=:costOptionName,
                                             costOptionPrice=:costOptionPrice,
                                             costOptionCalorie=:costOptionCalorie";
@@ -406,6 +411,7 @@ class Ecl{
                                     " . $this->eventsItemsPhotos_table . "
                                 SET
                                     eventsItemsId= $eventsItemsId,
+                                    sectionId= $sectionId,
                                     eventsItemsPhotoUrl=:eventsItemsPhotoUrl,
                                     eventsItemsPhotoHeight=:eventsItemsPhotoHeight,
                                     eventsItemsPhotoWidth=:eventsItemsPhotoWidth";
@@ -443,63 +449,85 @@ class Ecl{
             ]));
         }
     }
-    // END OF CREATE A NEW REVIEW
+    // END OF CREATE A NEW Section
 
-    // DELETE THE EXISTING Review
+    // DELETE THE EXISTING Section
     function deleteSection(){
-        $query = "SELECT * FROM " . $this->section_table . " r WHERE r.listsId = $this->listsId";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        while ($sectionRow = $stmt->fetch(PDO::FETCH_ASSOC)){
-            extract($sectionRow);
-            // print_r($sectionRow);
-            $query = "SELECT * FROM " . $this->menuItems_table . " r WHERE r.sectionId = $sectionId";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute();
-            while ($menuItemRow = $stmt->fetch(PDO::FETCH_ASSOC)){
-                    extract($menuItemRow);
-                    print_r($menuItemRow);
 
-                $query = "SELECT * FROM " . $this->menuItemsCost_table . " r WHERE r.menuItemsId = $menuItemsId";
-                $stmt = $this->conn->prepare($query);
-                $stmt->execute();
-                while ($menuItemCostRow = $stmt->fetch(PDO::FETCH_ASSOC)){
-                    extract($menuItemCostRow);
-                    print_r($menuItemCostRow);
-                }
-            }
-        }
-
-        die();
-
-
-        $deleteQuery = "DELETE FROM " . $this->section_table . " WHERE listsId = $this->listsId";
+        $sectionId = $this->sectionId;
+        $listsType = $this->listsType;
+        $deleteQuery = "DELETE FROM " . $this->section_table . " WHERE sectionId = $sectionId";
         $deleteStmt = $this->conn->prepare($deleteQuery);
-        $this->id=htmlspecialchars(strip_tags($this->listsId));
-        $deleteStmt->bindParam(":listsId", $this->listsId);
+        $this->id=htmlspecialchars(strip_tags($this->sectionId));
+        $deleteStmt->bindParam(":sectionId", $this->sectionId);
 
-        if($deleteStmt->execute()) {
-            $count = $deleteStmt->rowCount();
-            if ($count > 0) {
-                $deleteMenuItems = "DELETE FROM " . $this->menuItems_table . " WHERE sectionId = $sectionId";
-                $deleteMenuItemsStmt = $this->conn->prepare($deleteMenuItems);
-                if($deleteMenuItemsStmt->execute()) {   
-                    http_response_code(200);
-                    echo json_encode(array(
-                        "message" => "Review and it's related Comments Deleted Successfully",
-                        "id" => $this->id
-                    ));
+        if ($listsType === "MENUS" || $listsType === "MENU") {
+            if($deleteStmt->execute()) {
+                $count = $deleteStmt->rowCount();
+                if ($count > 0) {
+                    $deleteMenuItems = "DELETE FROM " . $this->menuItems_table . " WHERE sectionId = $sectionId";
+                    $deleteMenuItemsStmt = $this->conn->prepare($deleteMenuItems);
+                    if($deleteMenuItemsStmt->execute()) {
+                        $menuItemsCost = "DELETE FROM " . $this->menuItemsCost_table . " WHERE sectionId = $sectionId";
+                        $menuItemsCostStmt = $this->conn->prepare($menuItemsCost);
+                        if($menuItemsCostStmt->execute()) {
+                            $menuItemsCostOptions = "DELETE FROM " . $this->menuItemsCostOptions_table . " WHERE sectionId = $sectionId";
+                            $menuItemsCostOptionsStmt = $this->conn->prepare($menuItemsCostOptions);
+                            $menuItemsCostOptionsStmt->execute();
+                        }
+                    }
                 }
+                http_response_code(200);
+                echo json_encode(array(
+                    "message" => "ECL deleted Successfully",
+                    "sectionId" => $this->id
+                ));
             }
-        } else {
-            http_response_code(404);
-            echo json_encode(array("issue" => "The requested review does not exist on your site."));
+        } else if ($listsType === "EVENT" || $listsType === "EVENTS") {
+            if($deleteStmt->execute()) {
+                $count = $deleteStmt->rowCount();
+                if ($count > 0) {
+                    $deleteEventsItems = "DELETE FROM " . $this->eventsItems_table . " WHERE sectionId = $sectionId";
+                    $deleteEventsItemsStmt = $this->conn->prepare($deleteEventsItems);
+                    if($deleteEventsItemsStmt->execute()) {
+                        $eventItemsPhotos = "DELETE FROM " . $this->eventsItemsPhotos_table . " WHERE sectionId = $sectionId";
+                        $eventItemsPhotosStmt = $this->conn->prepare($eventItemsPhotos);
+                        $eventItemsPhotosStmt->execute();
+                    }
+                }
+                http_response_code(200);
+                echo json_encode(array(
+                    "message" => "ECL deleted Successfully",
+                    "sectionId" => $this->id
+                ));
+            }
+        } else if ($listsType === "PRODUCTS" || $listsType === "PRODUCT") {
+            if($deleteStmt->execute()) {
+                $count = $deleteStmt->rowCount();
+                if ($count > 0) {
+                    $deleteMenuItems = "DELETE FROM " . $this->menuItems_table . " WHERE sectionId = $sectionId";
+                    $deleteMenuItemsStmt = $this->conn->prepare($deleteMenuItems);
+                    if($deleteMenuItemsStmt->execute()) {
+                        $menuItemsCost = "DELETE FROM " . $this->menuItemsCost_table . " WHERE sectionId = $sectionId";
+                        $menuItemsCostStmt = $this->conn->prepare($menuItemsCost);
+                        if($menuItemsCostStmt->execute()) {
+                            $menuItemsCostOptions = "DELETE FROM " . $this->menuItemsCostOptions_table . " WHERE sectionId = $sectionId";
+                            $menuItemsCostOptionsStmt = $this->conn->prepare($menuItemsCostOptions);
+                            $menuItemsCostOptionsStmt->execute();
+                        }
+                    }
+                }
+                http_response_code(200);
+                echo json_encode(array(
+                    "message" => "ECL deleted Successfully",
+                    "sectionId" => $this->id
+                ));
+            }
         }
-        return false;
     }
-    // END OF DELETE THE EXISTING Review
+    // END OF DELETE THE EXISTING Section
 
-    //////////////// UPDATE THE EXISTING LISTINGS ////////////////////
+    //////////////// UPDATE THE EXISTING Section ////////////////////
     // update the product
     function updateReview(){
         // update query
@@ -555,6 +583,6 @@ class Ecl{
             }
         return false;
     }
-    //////////////// END OF UPDATE THE EXISTING LISTINGS ////////////////////
+    //////////////// END OF UPDATE THE EXISTING Section ////////////////////
 
 }

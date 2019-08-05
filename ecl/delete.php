@@ -19,10 +19,35 @@ $ecl = new Ecl($db);
 
 // get product id
 $data = json_decode(file_get_contents("php://input"));
-$id=isset($_GET["listsId"]) ? $_GET["listsId"] : "";
-$ecl->listsId = $id;
+$id=isset($_GET["id"]) ? $_GET["id"] : "";
+$ecl->sectionId = $id;
 
-if (empty($ecl->listsId)){
+// Count if row exists or not
+$queryForId = "SELECT * FROM sections WHERE sectionId = $ecl->sectionId";
+$stmt = $database->conn->prepare($queryForId);
+$stmt->execute();
+$count = $stmt->rowCount();
+if ($count > 0) {
+    while ($listRow = $stmt->fetch(PDO::FETCH_ASSOC)){
+        // Extract Costs
+        extract($listRow);
+        $ecl->sectionId = $sectionId;
+        $ecl->listsId = $listsId;
+    
+        $queryForId = "SELECT * FROM lists WHERE listsId = $ecl->listsId";
+        $stmtLists = $database->conn->prepare($queryForId);
+        $stmtLists->execute();
+        while ($listsRow = $stmtLists->fetch(PDO::FETCH_ASSOC)){
+            extract($listsRow);
+            $ecl->listsType = $listsType;
+        }
+    }
+} else {
+    http_response_code(404);
+    echo json_encode(array("issue" => "The requested list section does not exist on your site."));
+}
+
+if (empty($ecl->sectionId)){
     http_response_code(400);
     echo json_encode(array("issues" => [
         "description" => "Malformed request sent.",
