@@ -702,17 +702,17 @@ function create(){
                 " . $this->monday_table . "
             SET
                 locationId= $lastId,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Monday Code...
@@ -723,17 +723,17 @@ function create(){
                 " . $this->tuesday_table . "
             SET
                 locationId= $lastId,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Tuesday Code...
@@ -744,17 +744,17 @@ function create(){
                 " . $this->wednesday_table . "
             SET
                 locationId= $lastId,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Wednesday Code...
@@ -765,17 +765,17 @@ function create(){
                 " . $this->thursday_table . "
             SET
                 locationId= $lastId,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Thursday Code...
@@ -786,17 +786,17 @@ function create(){
                 " . $this->friday_table . "
             SET
                 locationId= $lastId,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Friday Code...
@@ -807,17 +807,17 @@ function create(){
                 " . $this->saturday_table . "
             SET
                 locationId= $lastId,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Saturday Code...
@@ -828,17 +828,17 @@ function create(){
                 " . $this->sunday_table . "
             SET
                 locationId= $lastId,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Sunday Code...
@@ -1386,17 +1386,17 @@ function update(){
                 " . $this->monday_table . "
             SET
                 locationId= $this->id,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Monday Code...
@@ -1407,17 +1407,17 @@ function update(){
                 " . $this->tuesday_table . "
             SET
                 locationId= $this->id,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Tuesday Code...
@@ -1428,17 +1428,17 @@ function update(){
                 " . $this->wednesday_table . "
             SET
                 locationId= $this->id,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Wednesday Code...
@@ -1449,17 +1449,17 @@ function update(){
                 " . $this->thursday_table . "
             SET
                 locationId= $this->id,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Thursday Code...
@@ -1470,17 +1470,17 @@ function update(){
                 " . $this->friday_table . "
             SET
                 locationId= $this->id,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Friday Code...
@@ -1491,17 +1491,17 @@ function update(){
                 " . $this->saturday_table . "
             SET
                 locationId= $this->id,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Saturday Code...
@@ -1512,17 +1512,17 @@ function update(){
                 " . $this->sunday_table . "
             SET
                 locationId= $this->id,
-                starts=:starts,
-                ends=:ends";
+                starts=:start,
+                ends=:end";
 
                 // prepare query
                 $insertStmt = $this->conn->prepare($insertQuery);
                 // sanitize
-                $this->starts=htmlspecialchars(strip_tags($value->starts));
-                $this->ends=htmlspecialchars(strip_tags($value->ends));
+                $this->start=htmlspecialchars(strip_tags($value->start));
+                $this->end=htmlspecialchars(strip_tags($value->end));
                 // bind values
-                $insertStmt->bindParam(":starts", $this->starts);
-                $insertStmt->bindParam(":ends", $this->ends);
+                $insertStmt->bindParam(":start", $this->start);
+                $insertStmt->bindParam(":end", $this->end);
                 $insertStmt->execute();
         }
         // End of Sunday Code...

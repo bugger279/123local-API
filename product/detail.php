@@ -238,8 +238,8 @@ if($num>0){
             while ($intervalRow = $mondayStmt->fetch(PDO::FETCH_ASSOC)){
                 extract($intervalRow);
                 $monday_arr[] =  [
-                    "starts" => $starts,
-                    "ends" => $ends,
+                    "start" => $starts,
+                    "end" => $ends,
                 ];
             }
         }
@@ -252,8 +252,8 @@ if($num>0){
             while ($intervalRow = $tuesdayStmt->fetch(PDO::FETCH_ASSOC)){
                 extract($intervalRow);
                 $tuesday_arr[] =  [
-                    "starts" => $starts,
-                    "ends" => $ends,
+                    "start" => $starts,
+                    "end" => $ends,
                 ];
             }
         }
@@ -266,8 +266,8 @@ if($num>0){
             while ($intervalRow = $wednesdayStmt->fetch(PDO::FETCH_ASSOC)){
                 extract($intervalRow);
                 $wednesday_arr[] =  [
-                    "starts" => $starts,
-                    "ends" => $ends,
+                    "start" => $starts,
+                    "end" => $ends,
                 ];
             }
         }
@@ -280,8 +280,8 @@ if($num>0){
             while ($intervalRow = $thursdayStmt->fetch(PDO::FETCH_ASSOC)){
                 extract($intervalRow);
                 $thursday_arr[] =  [
-                    "starts" => $starts,
-                    "ends" => $ends,
+                    "start" => $starts,
+                    "end" => $ends,
                 ];
             }
         }
@@ -294,8 +294,8 @@ if($num>0){
             while ($intervalRow = $fridayStmt->fetch(PDO::FETCH_ASSOC)){
                 extract($intervalRow);
                 $friday_arr[] =  [
-                    "starts" => $starts,
-                    "ends" => $ends,
+                    "start" => $starts,
+                    "end" => $ends,
                 ];
             }
         }
@@ -308,8 +308,8 @@ if($num>0){
             while ($intervalRow = $saturdayStmt->fetch(PDO::FETCH_ASSOC)){
                 extract($intervalRow);
                 $saturday_arr[] =  [
-                    "starts" => $starts,
-                    "ends" => $ends,
+                    "start" => $starts,
+                    "end" => $ends,
                 ];
             }
         }
@@ -322,8 +322,8 @@ if($num>0){
             while ($intervalRow = $sundayStmt->fetch(PDO::FETCH_ASSOC)){
                 extract($intervalRow);
                 $sunday_arr[] =  [
-                    "starts" => $starts,
-                    "ends" => $ends,
+                    "start" => $starts,
+                    "end" => $ends,
                 ];
             }
         }
