@@ -1698,4 +1698,13 @@ function reviewsAvg($locationId){
         return false;
     }
 //////////////// END OF DELETE THE EXISTING LISTINGS ////////////////////
+
+// Search API
+
+function search($keywords) {
+    $searchQuery = "SELECT name, locationId, yearEstablished, description  FROM " . $this->location_table . " WHERE name LIKE '%" . $keywords . "%'";
+    $stmt = $this->conn->prepare($searchQuery);
+    $stmt->execute();
+    return $stmt;
+    }
 }
