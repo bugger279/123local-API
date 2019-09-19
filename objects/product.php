@@ -1701,10 +1701,42 @@ function reviewsAvg($locationId){
 
 // Search API
 
-function search($keywords) {
+function find($keywords) {
     $searchQuery = "SELECT name, locationId, yearEstablished, description  FROM " . $this->location_table . " WHERE name LIKE '%" . $keywords . "%'";
     $stmt = $this->conn->prepare($searchQuery);
     $stmt->execute();
     return $stmt;
+    }
+
+    // Find API
+    function search($keywordName, $keywordAddress, $keywordAddress2, $keywordCity, $keywordState, $keywordZip, $keywordCountryCode, $keywordLatitude, $keywordLongitude) {
+
+        $keyArray = [$keywordName, $keywordAddress, $keywordAddress2, $keywordCity, $keywordState, $keywordZip, $keywordCountryCode, $keywordLatitude, $keywordLongitude];
+          $dbName = ["L.name", "L.address", "L.address", "L.city", "L.state", "L.postalCode", "L.countryCode", "L.displayLatitude", "L.displayLongitude", $keywordLongitude];
+          $conditionalQuery = "";
+          foreach ($keyArray as $key => $value) {
+            if (!empty($value)) {
+                $conditionalQuery .= "$dbName[$key] LIKE '%$value%' ";
+                $conditionalQuery .= "AND ";
+            }
+        }
+
+        $txt = $conditionalQuery;
+        $str= preg_replace('/\W\w+\s*(\W*)$/', '$1', $txt);
+
+        if (empty($str)) {
+            $str = "L.name LIKE '%%'";
+        }
+
+        $conditionalQuery = "";
+        $findQuery = "SELECT L.locationId, L.name, L.status, L.address, L.address2, L.city, L.state, L.postalCode, L.countryCode, L.displayLatitude, L.displayLongitude, L.yearEstablished, L.created, P.numbers, C.categoriesName FROM locations L INNER JOIN phones P ON L.locationId = P.locationId INNER JOIN categories C ON L.locationId = C.locationId WHERE $str GROUP BY L.locationId";
+
+        // $findQuery = "SELECT DISTINCT L.locationId, L.name, L.status, L.address, L.address2, L.city, L.state, L.postalCode, L.countryCode, L.displayLatitude, L.displayLongitude, L.yearEstablished, L.created, P.numbers, C.categoriesName FROM locations L INNER JOIN phones P ON L.locationId = P.locationId INNER JOIN categories C ON L.locationId = C.locationId WHERE $str";
+
+        $stmt = $this->conn->prepare($findQuery);
+        $stmt->execute();
+        $errors = $stmt->errorInfo();
+        print_r($errors);
+        return $stmt;
     }
 }
