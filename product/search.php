@@ -13,20 +13,67 @@ $database = new Database();
 $db = $database->getConnection();
 // initialize object
 $product = new Product($db);
-// Get Keyword
-$keywords=isset($_GET["s"]) ? $_GET["s"] : "";
-if (empty($keywords)){
-    http_response_code(400);
-    echo json_encode(array("issues" => [
-        "description" => "Malformed request sent.",
-        "errorCode" => "400",
-        "issue" => "No parameters passed"
-    ]));
-    die();
+
+// Get Keyword and checking if its empty or not
+if (isset($_GET['name'])) {
+    $keywordName=isset($_GET['name']) ? $_GET['name'] : "";
+} else {
+    $keywordName = "";
 }
-// read products will be here
+
+if (isset($_GET['address'])) {
+    $keywordAddress=isset($_GET['address']) ? $_GET['address'] : "";
+} else {
+    $keywordAddress = "";
+}
+
+if (isset($_GET['address2'])) {
+    $keywordAddress2=isset($_GET['address2']) ? $_GET['address2'] : "";
+} else {
+    $keywordAddress2 = "";
+}
+
+if (isset($_GET['city'])) {
+    $keywordCity=isset($_GET['city']) ? $_GET['city'] : "";
+} else {
+    $keywordCity = "";
+}
+
+if (isset($_GET['state'])) {
+    $keywordState=isset($_GET['state']) ? $_GET['state'] : "";
+} else {
+    $keywordState = "";
+}
+
+if (isset($_GET['zip'])) {
+    $keywordZip=isset($_GET['zip']) ? $_GET['zip'] : "";
+} else {
+    $keywordZip = "";
+}
+
+if (isset($_GET['countryCode'])) {
+    $keywordCountryCode=isset($_GET['countryCode']) ? $_GET['countryCode'] : "";
+} else {
+    $keywordCountryCode = "";
+}
+
+if (isset($_GET['latlang'])) {
+    $keywordLatLang=isset($_GET['latlang']) ? $_GET['latlang'] : "";
+    $str = $keywordLatLang;
+    $splittedData = explode(",",$str);
+    $keywordLatitude = $splittedData[0];
+    $keywordLongitude = $splittedData[1];
+} else {
+    $keywordLatLang = "";
+    $str = $keywordLatLang;
+    $keywordLatitude = "";
+    $keywordLongitude = "";
+}
+
 // query products
-$stmt = $product->search($keywords);
+$stmt = $product->search($keywordName, $keywordAddress, $keywordAddress2, $keywordCity, $keywordState, $keywordZip, $keywordCountryCode, $keywordLatitude, $keywordLongitude);
+print_r($stmt);
+
 $num = $stmt->rowCount();
 // check if more than 0 record found
 if($num>0){
@@ -37,12 +84,28 @@ if($num>0){
         extract($row);
         $locationStmt = $product->readOne($locationId);
         $locationCount = $locationStmt->rowCount();
+
+        // Reviews Count
+        $reviewCountStmt = $product->readReview($locationId);
+        $reviewsCount = $reviewCountStmt->rowCount();
+
         // main Array
         $location_item=array(
-            "partnerID" => $locationId,
+            "id" => $locationId,
+            "status" => $status,
             "name" => $name,
+            "address" => $address,
+            "address2" => $address2,
+            "city" => $city,
+            "state" => $state,
+            "zip" => $postalCode,
+            "countryCode" => $countryCode,
+            "latitude" => $displayLatitude,
+            "longitude" => $displayLongitude,
+            "websiteUrl" => "https://123local.com/single.php?id=".$locationId,
             "yearEstablished" => $yearEstablished,
-            "description" => $description
+            "reviewCount" => $reviewsCount,
+            "created" => $created
         );
         array_push($location_arr["records"], $location_item);
     }
