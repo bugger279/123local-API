@@ -31,7 +31,40 @@ if (empty($data->status)) {
 } else {
     $product->status = $data->status;
 }
+
+$locationNameQuery = "SELECT * FROM locations WHERE name = '$data->name'";
+$stmt = $database->conn->prepare($locationNameQuery);
+$stmt->execute();
+$num = $stmt->rowCount();
+
+if ($num>0) {
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+        $locationNameAlias = $product->seoUrl($name);
+        $locationNameAlias.= '-' . $num;
+    }
+    $locationAliasNameQuery = "SELECT * FROM locations WHERE locationNameAlias = '$locationNameAlias'";
+    $stmtAlias = $database->conn->prepare($locationAliasNameQuery);
+    $stmtAlias->execute();
+    $numAlias = $stmtAlias->rowCount();
+
+    if ($numAlias>1) {
+    while ($row = $stmtAlias->fetch(PDO::FETCH_ASSOC)){
+        extract($row);
+        $locationNameAlias.= '-' . $numAlias;
+    }
+    } else {
+        $locationNameAlias = $product->seoUrl($locationNameAlias);
+    }
+
+} else {
+    $locationNameAlias = $product->seoUrl($data->name);
+}
+// die();
+
 $product->name = $data->name;
+$product->locationNameAlias = $locationNameAlias;
 $product->address = $data->address->address;
 $product->visible = $data->address->visible;
 $product->address2 = $data->address->address2;

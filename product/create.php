@@ -31,6 +31,21 @@ foreach($field_data as $key => $val) {
     }
 }
 
+    $locationNameQuery = "SELECT * FROM locations WHERE name = '$data->name'";
+    $stmt = $database->conn->prepare($locationNameQuery);
+    $stmt->execute();
+    $num = $stmt->rowCount();
+    $locationNameAlias;
+    if ($num>0) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            extract($row);
+            $locationNameAlias = $product->seoUrl($data->name);
+        }
+        $locationNameAlias.= '-' . $num;
+    } else {
+        $locationNameAlias = $product->seoUrl($data->name);
+    }
+
 if(
     !empty($data->yextID) &&
     !empty($data->name) &&
@@ -42,6 +57,7 @@ if(
 ){
     $product->yextID = $data->yextID;
     $product->name = $data->name;
+    $product->locationNameAlias = $locationNameAlias;
     if (empty($data->status)) {
         $product->status = "LIVE";
     } else {

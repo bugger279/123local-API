@@ -308,6 +308,7 @@ function create(){
                 yextID=:yextID,
                 status=:status,
                 name=:name,
+                locationNameAlias=:locationNameAlias,
                 address=:address,
                 visible=:visible,
                 address2=:address2,
@@ -340,6 +341,7 @@ function create(){
     $this->yextID=htmlspecialchars(strip_tags($this->yextID));
     $this->status=htmlspecialchars(strip_tags($this->status));
     $this->name=htmlspecialchars(strip_tags($this->name));
+    $this->locationNameAlias=htmlspecialchars(strip_tags($this->locationNameAlias));
     $this->address=htmlspecialchars(strip_tags($this->address));
     $this->visible=htmlspecialchars(strip_tags($this->visible));
     $this->address2=htmlspecialchars(strip_tags($this->address2));
@@ -370,6 +372,7 @@ function create(){
     $stmt->bindParam(":yextID", $this->yextID);
     $stmt->bindParam(":status", $this->status);
     $stmt->bindParam(":name", $this->name);
+    $stmt->bindParam(":locationNameAlias", $this->locationNameAlias);
     $stmt->bindParam(":address", $this->address);
     $stmt->bindParam(":visible", $this->visible);
     $stmt->bindParam(":address2", $this->address2);
@@ -894,6 +897,7 @@ function update(){
             yextID=:yextID,
             status=:status,
             name=:name,
+            locationNameAlias=:locationNameAlias,
             address=:address,
             visible=:visible,
             address2=:address2,
@@ -929,6 +933,7 @@ function update(){
     $this->yextID=htmlspecialchars(strip_tags($this->yextID));
     $this->status=htmlspecialchars(strip_tags($this->status));
     $this->name=htmlspecialchars(strip_tags($this->name));
+    $this->locationNameAlias=htmlspecialchars(strip_tags($this->locationNameAlias));
     $this->address=htmlspecialchars(strip_tags($this->address));
     $this->visible=htmlspecialchars(strip_tags($this->visible));
     $this->address2=htmlspecialchars(strip_tags($this->address2));
@@ -961,6 +966,7 @@ function update(){
     $stmt->bindParam(":yextID", $this->yextID);
     $stmt->bindParam(":status", $this->status);
     $stmt->bindParam(":name", $this->name);
+    $stmt->bindParam(":locationNameAlias", $this->locationNameAlias);
     $stmt->bindParam(":address", $this->address);
     $stmt->bindParam(":visible", $this->visible);
     $stmt->bindParam(":address2", $this->address2);
@@ -1564,6 +1570,14 @@ function readOne($locationId){
     $stmt->execute();
     return $stmt;
 }
+
+function readOneAlias($locationAliasName){
+    $query = "SELECT * FROM " . $this->location_table . " p WHERE locationNameAlias = '$locationAliasName'";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    return $stmt;
+}
+
 // End of Read One Listings
 // Read Reviews count
 function readReview($locationId){
@@ -1702,7 +1716,7 @@ function reviewsAvg($locationId){
 // Search API
 
 function find($keywords) {
-    $searchQuery = "SELECT name, locationId, yearEstablished, description  FROM " . $this->location_table . " WHERE name LIKE '%" . $keywords . "%'";
+    $searchQuery = "SELECT name, locationId, locationNameAlias, yearEstablished, description  FROM " . $this->location_table . " WHERE name LIKE '%" . $keywords . "%'";
     $stmt = $this->conn->prepare($searchQuery);
     $stmt->execute();
     return $stmt;
@@ -1729,14 +1743,14 @@ function find($keywords) {
         }
 
         $conditionalQuery = "";
-        $findQuery = "SELECT L.locationId, L.name, L.status, L.address, L.address2, L.city, L.state, L.postalCode, L.countryCode, L.displayLatitude, L.displayLongitude, L.yearEstablished, L.created, P.numbers, C.categoriesName FROM locations L INNER JOIN phones P ON L.locationId = P.locationId INNER JOIN categories C ON L.locationId = C.locationId WHERE $str GROUP BY L.locationId";
+        $findQuery = "SELECT L.locationId, L.name, L.locationNameAlias, L.status, L.address, L.address2, L.city, L.state, L.postalCode, L.countryCode, L.displayLatitude, L.displayLongitude, L.yearEstablished, L.created, P.numbers, C.categoriesName FROM locations L INNER JOIN phones P ON L.locationId = P.locationId INNER JOIN categories C ON L.locationId = C.locationId WHERE $str GROUP BY L.locationId";
 
         // $findQuery = "SELECT DISTINCT L.locationId, L.name, L.status, L.address, L.address2, L.city, L.state, L.postalCode, L.countryCode, L.displayLatitude, L.displayLongitude, L.yearEstablished, L.created, P.numbers, C.categoriesName FROM locations L INNER JOIN phones P ON L.locationId = P.locationId INNER JOIN categories C ON L.locationId = C.locationId WHERE $str";
 
         $stmt = $this->conn->prepare($findQuery);
         $stmt->execute();
         $errors = $stmt->errorInfo();
-        print_r($errors);
+        // print_r($errors);
         return $stmt;
     }
 }

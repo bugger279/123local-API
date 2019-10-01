@@ -359,7 +359,8 @@ if($num>0){
             "yextID" => $yextID,
             // "partnerID" => $partnerID,
             "status" => $status, 
-            "name" => $name, 
+            "name" => $name,
+            "locationNameAlias" => $locationNameAlias,
             "address" => array(
                 "address" => $address, 
                 "visible" => $visible, 

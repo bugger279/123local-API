@@ -14,20 +14,26 @@ $db = $database->getConnection();
  
 // initialize object
 $product = new Product($db);
-$category_name=isset($_GET["category"]) ? $_GET["category"] : "";
-// read products will be here
-if (empty($category_name)){
+// get product id
+$data = json_decode(file_get_contents("php://input"));
+$name=isset($_GET["location"]) ? $_GET["location"] : "";
+
+$product->name = $name;
+// print_r($product->name);
+
+if (empty($product->name)){
     http_response_code(400);
-    echo json_encode(array(
-        "description" => [
-            "message" => "Yext sent a malformed request..",
-            "issue" => "No category Provided"
-        ]
-    ));
+    echo json_encode(array("issues" => [
+        "description" => "Malformed request sent.",
+        "errorCode" => "400",
+        "issue" => "No Name Provided"
+    ]));
     die();
 }
+
+// read products will be here
 // query products
-$stmt = $product->locationByCategories($category_name);
+$stmt = $product->readOneAlias($product->name);
 $num = $stmt->rowCount();
 // check if more than 0 record found
 if($num>0){
@@ -175,6 +181,17 @@ if($num>0){
             while ($brandRow = $brandStmt->fetch(PDO::FETCH_ASSOC)){
                 extract($brandRow);
                 $brand_arr[] = $brandsName;
+            }
+        }
+
+        // Payments
+        $paymentStmt = $product->readPaymentOptions($locationId);
+        $paymentCount = $paymentStmt->rowCount();
+        $payment_arr=array();
+        if ($paymentCount > 0) {
+            while ($paymentRow = $paymentStmt->fetch(PDO::FETCH_ASSOC)){
+                extract($paymentRow);
+                $payment_arr[] = $paymentOptionsName;
             }
         }
 
@@ -401,7 +418,7 @@ if($num>0){
                 "message" => $specialOfferMessage,
                 "url" => $specialOfferUrl,
             ),
-            // "paymentOptions" => array($paymentOptions),
+            "paymentOptions" => $payment_arr,
             "urls" => $url_arr,
             "rating" => $avgRating,
             "total_reviews" => $reviewsCount,

@@ -72,7 +72,7 @@ if (isset($_GET['latlang'])) {
 
 // query products
 $stmt = $product->search($keywordName, $keywordAddress, $keywordAddress2, $keywordCity, $keywordState, $keywordZip, $keywordCountryCode, $keywordLatitude, $keywordLongitude);
-print_r($stmt);
+// print_r($stmt);
 
 $num = $stmt->rowCount();
 // check if more than 0 record found
@@ -94,6 +94,7 @@ if($num>0){
             "id" => $locationId,
             "status" => $status,
             "name" => $name,
+            "locationNameAlias" => $locationNameAlias,
             "address" => $address,
             "address2" => $address2,
             "city" => $city,

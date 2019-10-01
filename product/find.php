@@ -41,6 +41,7 @@ if($num>0){
         $location_item=array(
             "partnerID" => $locationId,
             "name" => $name,
+            "locationNameAlias" => $locationNameAlias,
             "yearEstablished" => $yearEstablished,
             "description" => $description
         );
