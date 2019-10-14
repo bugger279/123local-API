@@ -995,6 +995,8 @@ function update(){
     // $stmt->bindParam(":services", $this->services);
     $stmt->bindParam(":yearEstablished", $this->yearEstablished);
     // execute the query
+    // print_r($stmt);
+    // die();
     if ($stmt->execute()) {
         // DELETE Existing Data
         $deleteCategories = "DELETE FROM categories WHERE locationId = $this->id";
