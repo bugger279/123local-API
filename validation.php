@@ -38,7 +38,7 @@ $headers = getRequestHeaders();
 $keyAPI = $headers['Key'];
 // echo $keyAPI;
 
-$authKey = "ieurtjkosakwehua1457821244amsnashjad";
+$authKey = "YOUR_KEY";
 if ($authKey === $keyAPI) {
     return 1;
 } else {
